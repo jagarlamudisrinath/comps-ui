@@ -1,0 +1,38 @@
+<div class="container-fluid h-100">
+    <mat-toolbar class="toolbar-breadcrumb">
+        <span class="flex-grow-1">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item selected"><a href="javascript:void(0);">Admin</a></li>
+                <li class="breadcrumb-item"></li>
+            </ol>
+        </span>
+    </mat-toolbar>
+    <mat-drawer-container autosize class="h-100">
+        <mat-drawer #admin_drawer class="outer" mode="side" opened>
+            <div class="side-bar">
+                <span class="material-icons" (click)="admin_drawer.toggle()" matTooltip="Show / Hide">
+                    chevron_right
+                </span>
+                <mat-nav-list>
+                    <mat-list-item routerLink="/admin/about" routerLinkActive="active" matTooltip="About">
+                        <mat-icon mat-list-icon>person</mat-icon>
+                        <a matLine href="javascript:void(0)">ABOUT</a>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/admin/classes" routerLinkActive="active" matTooltip="Class Rooms">
+                        <mat-icon mat-list-icon>business</mat-icon>
+                        <a matLine href="javascript:void(0)">CLASSES</a>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/admin/users" routerLinkActive="active" matTooltip="Users">
+                        <mat-icon mat-list-icon>group</mat-icon>
+                        <a matLine href="javascript:void(0)">USERS</a>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+        </mat-drawer>
+        <mat-drawer-content class="outer">
+            <div class="side-bar-content">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
