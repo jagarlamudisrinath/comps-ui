@@ -2,6 +2,7 @@ import { SlimScrollDirective } from "./directives/slim-scroll.directive";
 import { ElementAutoFocusDirective } from './directives/element-auto-focus.directive';
 
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
@@ -40,6 +41,7 @@ import { CUClassComponent } from './components/c-u-class/c-u-class.component';
     CUClassComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

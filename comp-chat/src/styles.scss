@@ -191,6 +191,10 @@ button:focus {
 
 form mat-form-field {
     width: 100%;
+
+    .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+        font-weight: 500 !important;
+    }
 }
 
 mat-card {
