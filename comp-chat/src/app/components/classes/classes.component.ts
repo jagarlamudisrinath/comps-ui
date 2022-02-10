@@ -64,7 +64,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.adminService.getGraduateAssistants();
   }
 
-
   applyFilter(event: any) {
     this.filterString = event.target.value;
   }
