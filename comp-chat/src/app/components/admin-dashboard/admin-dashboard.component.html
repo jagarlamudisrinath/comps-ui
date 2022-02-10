@@ -1,18 +1,12 @@
-<div class="container-fluid h-100">
-    <mat-toolbar class="toolbar-breadcrumb">
-        <span class="flex-grow-1">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item selected"><a href="javascript:void(0);">Admin</a></li>
-                <li class="breadcrumb-item"></li>
-            </ol>
-        </span>
-    </mat-toolbar>
-    <mat-drawer-container autosize class="h-100">
+<div class="mat-drawer-settings">
+    <mat-drawer-container autosize>
         <mat-drawer #admin_drawer class="outer" mode="side" opened>
             <div class="side-bar">
-                <span class="material-icons" (click)="admin_drawer.toggle()" matTooltip="Show / Hide">
-                    chevron_right
-                </span>
+                <!-- <div class="open-close">
+                    <span class="material-icons" (click)="admin_drawer.toggle()" matTooltip="Show / Hide">
+                        chevron_right
+                    </span>
+                </div> -->
                 <mat-nav-list>
                     <mat-list-item routerLink="/admin/about" routerLinkActive="active" matTooltip="About">
                         <mat-icon mat-list-icon>person</mat-icon>

@@ -1,0 +1,66 @@
+<div class="header">
+    <mat-toolbar>
+        <span *ngIf="selectedClass.id === undefined" class="name">New Class</span>
+        <span *ngIf="selectedClass.id !== undefined" class="name">Edit Class</span>
+        <span matTooltip="Close" class="material-icons pull-right">
+            <button class="custom-medium-fab mb-2 closeIconColor" mat-mini-fab [color]="'primary'" matTooltip="Close"
+                (click)="slide.emit(drawer)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+</div>
+<div class="content">
+    <div slim-scroll [offset]="65" [alwaysVisible]="true">
+        <form novalidate #f='ngForm' autocomplete="off">
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field hintLabel="Max 75 characters" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input name="title" [(ngModel)]="selectedClass.title" matInput maxlength="75" required
+                            autofocus>
+                        <mat-hint align="end">{{f.controls['title']?.value?.length || 0}}/75</mat-hint>
+                        <mat-error *ngIf="f.controls['title']?.errors?.required">Name is mandatory.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Professor</mat-label>
+                        <mat-select [(ngModel)]="selectedClass.profId" name="profId" required
+                            (ngModelChange)="profSearchString = ''">
+                            <input class="p-3" type="text" name='search' [(ngModel)]="profSearchString"
+                                placeholder="Search Professor" aria-label="Search Professor" matInput autocomplete="off"
+                                (keyup)="getFilteredProfessors($event)"
+                                (blur)="profSearchString = '';getFilteredProfessors('')" auto-focus>
+                            <mat-option *ngFor="let item of filteredProfessors" [value]="item.id"
+                                matTooltip="{{item.firstName}} {{item.lastName}}">
+                                {{item.firstName}} {{item.lastName}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="f.controls['profId']?.errors?.required">
+                            Please assign a professor to this class.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select GA</mat-label>
+                        <mat-select [(ngModel)]="selectedClass.gaId" name="gaId" (ngModelChange)="gaSearchString = ''">
+                            <input class="p-3" type="text" name='search' [(ngModel)]="gaSearchString"
+                                placeholder="Search Graduate Assistant" aria-label="Search Graduate Assistant" matInput
+                                autocomplete="off" (keyup)="getFilteredGAs($event)"
+                                (blur)="gaSearchString = '';getFilteredGAs('')" auto-focus>
+                            <mat-option *ngFor="let item of filteredGAs" [value]="item.id"
+                                matTooltip="{{item.firstName}} {{item.lastName}}">
+                                {{item.firstName}} {{item.lastName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="d-flex justify-content-end pe-4">
+        <button mat-raised-button color="primary" (click)="save()">{{isNew?'Create Class':'Update Class'}}</button>
+    </div>
+</div>

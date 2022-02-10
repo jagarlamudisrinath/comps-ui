@@ -12,7 +12,8 @@ export class AboutComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.user.name = "Test Admin";
+    this.user.firstName = "Test";
+    this.user.lastName = "Admin";
     this.user.email = "test_email@email.com";
   }
 

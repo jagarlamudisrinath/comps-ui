@@ -1,5 +1,9 @@
+import { SlimScrollDirective } from "./directives/slim-scroll.directive";
+import { ElementAutoFocusDirective } from './directives/element-auto-focus.directive';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,21 +15,36 @@ import { StudentDashboardComponent } from './components/student-dashboard/studen
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AboutComponent } from './components/about/about.component';
+import { ClassesComponent } from './components/classes/classes.component';
+import { UsersComponent } from './components/users/users.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ClassSnippetComponent } from './components/class-snippet/class-snippet.component';
+import { CUClassComponent } from './components/c-u-class/c-u-class.component';
 
 @NgModule({
   declarations: [
+    SlimScrollDirective,
+    ElementAutoFocusDirective,
+
     AppComponent,
     AdminDashboardComponent,
     AssistantProfessorDashboardComponent,
     StudentDashboardComponent,
     DashboardComponent,
     HeaderComponent,
-    AboutComponent
+    AboutComponent,
+    ClassesComponent,
+    UsersComponent,
+    FooterComponent,
+    ClassSnippetComponent,
+    CUClassComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   providers: [],

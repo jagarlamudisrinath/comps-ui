@@ -4,15 +4,14 @@
     margin: 0;
     padding: 0;
     outline: none;
-    zoom: 1;
 }
 
-$banner-color: #3f51b5; //default primary color
+$banner-color: #5C6BC0;
 $white-color: #fff;
 $default-font-color: #000000de;
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $default-font-color; overflow: hidden }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $default-font-color; }
 
 .app-header {
     background-color: $banner-color;
@@ -24,30 +23,112 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     }
 }
 
-.toolbar-breadcrumb {
-    height: 2.5rem;
-    line-height: 2.5px;
-    padding: 0 !important;
-    background-color: $white-color;
+.app-main {
+    height: calc(100% - 64px - 48px); /* calculating height without header and footer height */
+}
 
-    .breadcrumb {
-        margin: 0;
-        .breadcrumb-item {
-            a {
-                text-decoration: none;
-                color: inherit;
-                font-size: 14px;
-            }
-            &.selected a {
-                cursor: default;
-                font-weight: bold;
-            }
-            &+.breadcrumb-item::before {
-                font-size: 14px;
-                margin-top: 3px;
-                font-weight: 600;
+.app-footer {
+    font-size: 14px;
+    height: 48px !important;
+    background: #fff;
+}
+
+.closeIconColor {
+    background: #616161 !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.mat-drawer-settings {
+    width: 100%;
+    height: 100%;
+
+    mat-drawer-container {
+        width: 100%;
+        height: 100%;
+
+        mat-drawer.outer {
+            min-width: 50px;
+            width: 250px;
+            background: #eee;
+            padding: 10px 0px 10px 15px;
+            border: none;
+
+            .side-bar {
+                height: 100%;
+                color: #343a40;
+                background: #fff;
+                padding: 5px;
+
+                mat-list-item {
+                    border-left: 3px solid #fff;
+
+                    &.active, 
+                    &:hover {
+                        background: #eee;
+                        border-left: 3px solid #343a40;
+                    }
+                }
             }
         }
+
+        mat-drawer-content.outer {
+            height: 100%;
+            background: #eee;
+            padding: 10px 15px;
+
+            .side-bar-content {
+                height: 100%;
+                background: #fff;
+                padding: 5px;
+
+                .header mat-toolbar {
+                    height: 35px;
+                    background: #fff;
+                    color: #343a40;
+                    font-size: 16px;
+
+                    .name {
+                        flex: auto;
+                    }
+                }
+            }
+        }
+
+        mat-drawer.inner {
+            width: 100%;
+            background: #fff;
+            border: none !important;
+        }
+
+        mat-drawer-content.inner {
+            height: 100%;
+            background: #fff;
+            padding: 10px 15px 0px 15px;
+        }
+    }
+}
+
+.actions {
+    .mat-mini-fab .mat-button-wrapper {
+        color: #6c757d;
+        padding: 0;
+    }
+
+    mat-icon {
+        color: #6c757d;
+        padding: 0;
+
+        &:hover {
+            color: #343a40;
+        }
+    }
+
+    button {
+        background-color: transparent !important;
+        box-shadow: none !important;
     }
 }
 
@@ -55,9 +136,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     box-shadow: none !important;
     width: 40rem;
     height: 20rem;
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 30px !important;
-    background-color: whitesmoke;
+    background-color: #E8EAF6;
     .user-img {
         display: grid;
         text-align: center;
@@ -78,6 +159,135 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
         right: 30px;
         .mat-icon {
             margin-right: 5px;
+        }
+    }
+}
+
+.side-bar-content .content {
+    margin-top: 10px;
+    
+    .row{
+        margin: 0 !important;
+    }
+
+    mat-grid-tile { 
+        mat-card {
+            width: 95%;
+            background: #eee;
+
+            .mat-card-header-text {
+                width: 100%;
+                margin: 0;
+                font-size: 16px;
+                border-bottom: 1px dotted #343a40;
+            }
+        }
+
+        mat-card-header mat-card-title {
+            font-size: 15px;
+        }
+    }
+}
+
+form mat-form-field {
+    width: 100%;
+}
+
+mat-card {
+    color: #343a40 !important;
+    margin-bottom: 2px;
+}
+
+.mat-card-avatar mat-icon {
+    font-size: 40px;
+}
+
+.custom-search {
+    margin-right: 20px;
+    margin-bottom: .5rem!important;
+
+    mat-form-field .mat-form-field-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+
+        .mat-form-field-flex {
+            height: 30px;
+        }
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline{
+        top: 0;
+    }
+
+    .mat-form-field-flex { 
+        .mat-form-field-infix {
+            padding: 5px 0;
+            top: 0px;
+            border-top: 0;
+
+            input {
+                font-size: 13px;
+            }
+
+            .mat-form-field-label-wrapper {
+                font-size: 13px;
+            }
+        }
+
+        .mat-form-field-suffix {
+            top: 6px;
+
+            .mat-icon {
+                font-size: 18px;
+                line-height: 16px;
+                height: 16px;
+                width: 16px;
+            }
+        }
+    }
+}
+
+.custom-medium-fab {
+    width: 28px !important;
+    height: 28px !important;
+    line-height: 28px !important;
+
+    .mat-button-wrapper {
+        padding: 0 !important;
+        width: 20px !important;
+        height: 20px !important;
+        line-height: 20px !important;
+        margin-right: 1px;
+
+        .mat-icon {
+            font-size: 17px;
+            width: 20px;
+            height: 19px;
+            line-height: 18px;
+            font-weight: 600;
+        }
+    }
+}
+
+.custom-autocomplete mat-option {
+    height: 25px;
+    line-height: 25px;
+    font-size: 13px;
+}
+
+.search-form-field {
+    margin-right: 20px;
+
+    mat-form-field .mat-form-field-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+
+        .mat-form-field-flex {
+            height: 50px;
+
+            .mat-form-field-infix {
+                border-top: 7px solid transparent !important;
+            }
         }
     }
 }

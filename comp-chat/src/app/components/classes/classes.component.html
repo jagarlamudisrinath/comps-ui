@@ -1,0 +1,72 @@
+<mat-drawer-container class="drawerContainer" autosize>
+    <mat-drawer #classes_drawer class="inner" mode="side" disableClose position='end'>
+        <div *ngIf="!showTemplate" class="h-100">
+            <app-c-u-class [isNew]='isNew' [originalClass]='originalClass' [selectedClass]='selectedClass'
+                [professors]='professors' [graduateAssistants]='graduateAssistants' [drawer]='classes_drawer'
+                (slide)="slide($event)" (gotoValues)="gotoAssignments($event)">
+            </app-c-u-class>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="inner custom-header">
+        <div *ngIf="showTemplate" class="h-100">
+            <div class="header">
+                <mat-toolbar>
+                    <span class="name">CLASSES</span>
+                    <span class="custom-search">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input matInput (keyup)="applyFilter($event)">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </span>
+                    <span matTooltip="Add new line item parameter value" class="material-icons pull-right">
+                        <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
+                            (click)="add(classes_drawer)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </span>
+                </mat-toolbar>
+                <mat-divider></mat-divider>
+            </div>
+            <div slim-scroll [offset]="69" [alwaysVisible]="true">
+                <div class="content">
+                    <mat-grid-list cols="4" rowHeight="120px">
+                        <mat-grid-tile *ngFor="let item of classes">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
+                                        {{item.title}}
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-actions class="actions">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <mat-icon matTooltip="Description: ">info</mat-icon>
+                                        </div>
+                                        <div>
+                                            <button mat-mini-fab>
+                                                <mat-icon matTooltip="Edit" (click)="edit(classes_drawer, item)">
+                                                    edit
+                                                </mat-icon>
+                                            </button>
+                                            <button mat-mini-fab>
+                                                <mat-icon matTooltip="Assignments"
+                                                    (click)="gotoClassAssignments(classes_drawer, item)">
+                                                    view_list
+                                                </mat-icon>
+                                            </button>
+                                            <button mat-mini-fab>
+                                                <mat-icon matTooltip="Delete" (click)="delete(item)">delete</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-card>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+<div>

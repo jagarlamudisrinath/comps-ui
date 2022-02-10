@@ -8,7 +8,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { } from '@angular/material/'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -23,7 +25,10 @@ import { } from '@angular/material/'
     MatListModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatGridListModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   exports: [
     MatToolbarModule,
@@ -33,7 +38,10 @@ import { } from '@angular/material/'
     MatListModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatGridListModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }
