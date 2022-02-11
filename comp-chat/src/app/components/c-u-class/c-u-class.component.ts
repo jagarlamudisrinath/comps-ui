@@ -17,7 +17,6 @@ export class CUClassComponent implements OnInit {
   @Input() graduateAssistants: User[] = [];
   @Input() drawer: any;
   @Output() slide: any = new EventEmitter();
-  @Output() gotoAssignments: any = new EventEmitter();
 
   profSearchString: string = "";
   filteredProfessors: User[] = [];
@@ -61,6 +60,7 @@ export class CUClassComponent implements OnInit {
         }
         Object.assign(this.originalClass, response);
         Object.assign(this.selectedClass, response);
+        this.slide.emit(this.drawer);
       }, (response: any) => {
         alert('Error in class.')
       }
