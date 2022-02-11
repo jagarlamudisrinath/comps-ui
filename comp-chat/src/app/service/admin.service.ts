@@ -19,9 +19,9 @@ export class AdminService {
 
   getClasses = () => {
     this.classes.next([
-      { id: "a", title: "Class A", profId: "1", gaId: '1' },
-      { id: "b", title: "Class B", profId: "2", gaId: '2' },
-      { id: "c", title: "Class C", profId: "3", gaId: '3' }
+      { id: "a", title: "Class A", description: '', profId: "1", gaId: '1' },
+      { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
+      { id: "c", title: "Class C", description: '', profId: "3", gaId: '3' }
     ]);
     /* this.resources.getClasses(userId,
       (response: Class[]) => {
@@ -83,5 +83,14 @@ export class AdminService {
         this.graduateAssistants.next([]);
         f(response);
       }); */
+  }
+
+  uploadStudentsToClass = (classId: string, formData: any, s: any, f: any) => {
+    this.resources.uploadStudentsToClass(classId, formData,
+      (response: any) => {
+        s(response);
+      }, (response: any) => {
+        f(response);
+      });
   }
 }

@@ -4,12 +4,13 @@ import { ElementAutoFocusDirective } from './directives/element-auto-focus.direc
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AssistantProfessorDashboardComponent } from './components/assistant-professor-dashboard/assistant-professor-dashboard.component';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
@@ -19,8 +20,8 @@ import { AboutComponent } from './components/about/about.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { UsersComponent } from './components/users/users.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ClassSnippetComponent } from './components/class-snippet/class-snippet.component';
 import { CUClassComponent } from './components/c-u-class/c-u-class.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -37,17 +38,18 @@ import { CUClassComponent } from './components/c-u-class/c-u-class.component';
     ClassesComponent,
     UsersComponent,
     FooterComponent,
-    ClassSnippetComponent,
-    CUClassComponent
+    CUClassComponent,
+    FileUploadComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule,
+    NgxDropzoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]

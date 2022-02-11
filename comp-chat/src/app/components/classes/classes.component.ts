@@ -70,7 +70,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   add = (drawer: any) => {
     this.isNew = true;
-    this.showSlideTemplate = "CLASSES";
+    this.showSlideTemplate = "CREATE_CLASS";
     this.originalClass = new Class();
     this.selectedClass = new Class();
     this.slide(drawer);
@@ -78,15 +78,10 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   edit = (drawer: any, cl: Class) => {
     this.isNew = false;
-    this.showSlideTemplate = "CLASSES";
+    this.showSlideTemplate = "CREATE_CLASS";
     this.originalClass = cl;
     this.selectedClass = CommonUtilsService.cloneObject(cl);
     this.slide(drawer)
-  }
-
-  delete = (cl: Class) => {
-    let fail: any;
-    this.adminService.deleteClass(cl, fail);
   }
 
   gotoClassAssignments = (drawer: any, cl: Class) => {
@@ -98,6 +93,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
   gotoAssignments = (cl: any) => {
     this.showSlideTemplate = "CLASS_ASSIGNMENTS";
     this.selectedClass = cl;
+  }
+
+  uploadStudents = (drawer: any, cl: Class) => {
+    this.showSlideTemplate = "UPLOAD_CLASS_STUDENTS";
+    this.selectedClass = cl;
+    this.slide(drawer);
   }
 
   slide = (drawer: any) => {

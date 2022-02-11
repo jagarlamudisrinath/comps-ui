@@ -1,0 +1,35 @@
+<div class="header">
+    <mat-toolbar>
+        <span class="name">{{title}}</span>
+        <span matTooltip="Close" class="material-icons pull-right">
+            <button class="custom-medium-fab mb-2 closeIconColor" mat-mini-fab [color]="'primary'" matTooltip="Close"
+                (click)="slide.emit(drawer)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+</div>
+<div class="content">
+    <div slim-scroll [offset]="65" [alwaysVisible]="true">
+        <form novalidate #f='ngForm' autocomplete="off">
+            <ngx-dropzone [multiple]="multiple" [accept]="acceptedFileTypes" (change)="onSelect($event)">
+                <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>
+                        <div>{{ f.name }}</div>
+                        <mat-icon> file_present </mat-icon>
+                        <div>({{ f.type }})</div>
+                    </ngx-dropzone-label>
+
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+            <div class="text-center">
+                <mat-error *ngIf="filesErrorMessage !== ''">{{filesErrorMessage}}</mat-error>
+            </div>
+        </form>
+    </div>
+    <div class="d-flex justify-content-end pe-4">
+        <button mat-raised-button color="primary" (click)="upload()">Upload</button>
+    </div>
+</div>

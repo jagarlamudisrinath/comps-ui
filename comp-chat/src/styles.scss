@@ -165,6 +165,7 @@ button:focus {
 
 .side-bar-content .content {
     margin-top: 10px;
+    padding: 10px 20px 0 20px;
     
     .row{
         margin: 0 !important;
@@ -187,6 +188,16 @@ button:focus {
             font-size: 15px;
         }
     }
+}
+
+.mat-select-panel {
+    overflow-x: hidden !important;
+}
+
+ngx-dropzone {
+    justify-content: center;
+    margin: 20px 40px;
+    height: 300px !important;
 }
 
 form mat-form-field {

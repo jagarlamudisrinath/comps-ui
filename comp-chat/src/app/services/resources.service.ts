@@ -58,4 +58,14 @@ export class ResourcesService {
         f(res);
       }, null, null);
   }
+
+  uploadStudentsToClass = (classId: string, formData: any, s: any, f: any) => {
+    const slug = "/class-students/upload?classId=" + classId;
+    this.comm.post(slug, formData,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null);
+  }
 }

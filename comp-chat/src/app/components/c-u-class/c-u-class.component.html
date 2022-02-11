@@ -26,6 +26,12 @@
                 </div>
                 <div class="col-6">
                     <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea name="description" matInput [(ngModel)]="selectedClass.description"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
                         <mat-label>Select Professor</mat-label>
                         <mat-select [(ngModel)]="selectedClass.profId" name="profId" required
                             (ngModelChange)="profSearchString = ''">
