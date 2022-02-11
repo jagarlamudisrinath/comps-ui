@@ -23,7 +23,7 @@ export class AdminService {
       { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
       { id: "c", title: "Class C", description: '', profId: "3", gaId: '3' }
     ]);
-    /* this.resources.getClasses(userId,
+    /* this.resources.getClasses(
       (response: Class[]) => {
         this.classes.next(response);
       }, (response: any) => {
@@ -33,20 +33,13 @@ export class AdminService {
   }
 
   createOrUpdateClass = (cl: Class, s: any, f: any) => {
-    /* if (CommonUtilsService.isEmpty(cl.id)) {
-      this.resources.createClass(cl,
-        (response: Class) => {
-          s(response);
-        }, (response: any) => {
-          f(response);
-        });
-    } else {
-
-    } */
-  }
-
-  deleteClass = (cl: Class, f: any) => {
-
+    this.resources.createClass(cl,
+      (response: Class) => {
+        s(response);
+        this.getClasses();
+      }, (response: any) => {
+        f(response);
+      });
   }
 
   getProfessors = () => {

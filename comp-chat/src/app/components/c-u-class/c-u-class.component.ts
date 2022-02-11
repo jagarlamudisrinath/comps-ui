@@ -53,10 +53,16 @@ export class CUClassComponent implements OnInit {
 
   save = () => {
     this.adminService.createOrUpdateClass(this.selectedClass,
-      (response: any) => {
-
+      (response: Class) => {
+        if (this.isNew) {
+          alert(`Class [ ${response.title} ] created successfully.`);
+        } else {
+          alert(`Class [ ${response.title} ] updated successfully.`);
+        }
+        Object.assign(this.originalClass, response);
+        Object.assign(this.selectedClass, response);
       }, (response: any) => {
-
+        alert('Error in class.')
       }
     );
 
