@@ -90,11 +90,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.slide(drawer);
   }
 
-  gotoAssignments = (cl: any) => {
-    this.showSlideTemplate = "CLASS_ASSIGNMENTS";
-    this.selectedClass = cl;
-  }
-
   uploadStudents = (drawer: any, cl: Class) => {
     this.showSlideTemplate = "UPLOAD_CLASS_STUDENTS";
     this.selectedClass = cl;

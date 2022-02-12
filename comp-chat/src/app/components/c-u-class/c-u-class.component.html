@@ -1,7 +1,6 @@
 <div class="header">
     <mat-toolbar>
-        <span *ngIf="selectedClass.id === undefined" class="name">New Class</span>
-        <span *ngIf="selectedClass.id !== undefined" class="name">Edit Class</span>
+        <span class="name">{{isNew ? 'New' : 'Edit'}} Class</span>
         <span matTooltip="Close" class="material-icons pull-right">
             <button class="custom-medium-fab mb-2 closeIconColor" mat-mini-fab [color]="'primary'" matTooltip="Close"
                 (click)="slide.emit(drawer)">
@@ -67,6 +66,8 @@
         </form>
     </div>
     <div class="d-flex justify-content-end pe-4">
-        <button mat-raised-button color="primary" (click)="save()">{{isNew?'Create Class':'Update Class'}}</button>
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="f.invalid">
+            {{isNew?'Create Class':'Update Class'}}
+        </button>
     </div>
 </div>

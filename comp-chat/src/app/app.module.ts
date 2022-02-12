@@ -22,6 +22,8 @@ import { UsersComponent } from './components/users/users.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CUClassComponent } from './components/c-u-class/c-u-class.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AssignmentsComponent } from './components/assignments/assignments.component';
+import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignment.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     UsersComponent,
     FooterComponent,
     CUClassComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AssignmentsComponent,
+    CUAssignmentComponent
   ],
   imports: [
     HttpClientModule,

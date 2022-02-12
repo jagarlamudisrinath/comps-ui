@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { UserType } from '../enums/user-type';
+import { Assignment } from '../models/assignment';
 import { Class } from '../models/class';
 import { User } from '../models/user';
 import { CommonUtilsService } from '../services/common-utils.service';
@@ -14,6 +15,7 @@ export class AdminService {
   classes: BehaviorSubject<Class[]> = new BehaviorSubject<Class[]>([]);
   professors: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   graduateAssistants: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  classAssignments: BehaviorSubject<Assignment[]> = new BehaviorSubject<Assignment[]>([]);
 
   constructor(private resources: ResourcesService) { }
 
@@ -33,7 +35,7 @@ export class AdminService {
   }
 
   createOrUpdateClass = (cl: Class, s: any, f: any) => {
-    this.resources.createClass(cl,
+    this.resources.createOrUpdateClass(cl,
       (response: Class) => {
         s(response);
         this.getClasses();
@@ -82,6 +84,31 @@ export class AdminService {
     this.resources.uploadStudentsToClass(classId, formData,
       (response: any) => {
         s(response);
+      }, (response: any) => {
+        f(response);
+      });
+  }
+
+  getClassAssignments = (classId: string, f: any) => {
+    this.classAssignments.next([
+      { id: "a", title: "Assignment A", noOfGroups: 3, classId: '1', question: 'Question 1' },
+      { id: "b", title: "Assignment B", noOfGroups: 5, classId: '1', question: 'Question 1' },
+      { id: "c", title: "Assignment C", noOfGroups: 2, classId: '1', question: 'Question 1' }
+    ]);
+    /* this.resources.getClassAssignments(classId,
+      (response: Assignment[]) => {
+        this.classAssignments.next(response);
+      }, (response: any) => {
+        this.classAssignments.next([]);
+        f(response);
+      }); */
+  }
+
+  createOrUpdateAssignment = (classId: string, cl: Assignment, s: any, f: any) => {
+    this.resources.createOrUpdateAssignment(classId, cl,
+      (response: Assignment) => {
+        s(response);
+        this.getClassAssignments(classId, f);
       }, (response: any) => {
         f(response);
       });

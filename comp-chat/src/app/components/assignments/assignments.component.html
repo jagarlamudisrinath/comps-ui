@@ -1,31 +1,29 @@
 <mat-drawer-container class="drawerContainer" autosize>
-    <mat-drawer #classes_drawer class="inner" mode="side" disableClose position='end'>
-        <div *ngIf="!showTemplate" class="h-100">
+    <mat-drawer #assignments_drawer class="inner" mode="side" disableClose position='end'>
+        <div *ngIf="!showAssignmentsTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
-                <ng-template [ngSwitchCase]="'CREATE_CLASS'">
-                    <app-c-u-class [isNew]='isNew' [originalClass]='originalClass' [selectedClass]='selectedClass'
-                        [professors]='professors' [graduateAssistants]='graduateAssistants' [drawer]='classes_drawer'
-                        (slide)="slide($event)">
-                    </app-c-u-class>
+                <ng-template [ngSwitchCase]="'CREATE_ASSIGNMENT'">
+                    <app-c-u-assignment [isNew]="isNew" [originalAssignment]="originalAssignment"
+                        [selectedAssignment]="selectedAssignment" [classId]="class.id" [drawer]="assignments_drawer"
+                        (slide)="slide($event)"></app-c-u-assignment>
                 </ng-template>
-                <ng-template [ngSwitchCase]="'UPLOAD_CLASS_STUDENTS'">
-                    <app-file-upload [title]='"Upload Students File"' [type]="'UPLOAD_CLASS_STUDENTS'"
-                        [componentId]='selectedClass.id' [componentName]='selectedClass.title' [drawer]='classes_drawer'
-                        [multiple]='false' [acceptedFileTypes]='".csv"' [filesCount]='1' (slide)="slide($event)">
-                    </app-file-upload>
-                </ng-template>
-                <ng-template [ngSwitchCase]="'CLASS_ASSIGNMENTS'">
-                    <app-assignments [class]="selectedClass" [drawer]="classes_drawer" (slideParent)="slide($event)">
-                    </app-assignments>
+                <ng-template [ngSwitchCase]="'ASSIGNMENT_GROUPS'">
+                    class assignments
                 </ng-template>
             </div>
         </div>
     </mat-drawer>
     <mat-drawer-content class="inner custom-header">
-        <div *ngIf="showTemplate" class="h-100">
+        <div *ngIf="showAssignmentsTemplate" class="h-100">
             <div class="header">
                 <mat-toolbar class="p-0">
-                    <span class="name">CLASSES</span>
+                    <span matTooltip="Back to classes" class="material-icons me-3">
+                        <button class="custom-medium-fab closeIconColor mb-2" mat-mini-fab [color]="'primary'"
+                            (click)="slideParent.emit(drawer)">
+                            <mat-icon>keyboard_backspace</mat-icon>
+                        </button>
+                    </span>
+                    <span class="name">Assignments of class [ {{class.title}} ]</span>
                     <!-- <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
@@ -33,9 +31,9 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
-                    <span matTooltip="Add new class" class="material-icons pull-right">
+                    <span matTooltip="Add new assignment" class="material-icons pull-right">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
-                            (click)="add(classes_drawer)">
+                            (click)="add(assignments_drawer)">
                             <mat-icon>add</mat-icon>
                         </button>
                     </span>
@@ -45,7 +43,7 @@
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
                     <mat-grid-list cols="4" rowHeight="120px">
-                        <mat-grid-tile *ngFor="let item of classes">
+                        <mat-grid-tile *ngFor="let item of assignments">
                             <mat-card>
                                 <mat-card-header>
                                     <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
@@ -54,25 +52,17 @@
                                 </mat-card-header>
                                 <mat-card-actions class="actions">
                                     <div class="d-flex">
-                                        <div class="flex-grow-1">
-                                            <mat-icon matTooltip="Description: {{item.description}}">info</mat-icon>
-                                        </div>
+                                        <div class="flex-grow-1"> </div>
                                         <div>
                                             <button mat-mini-fab>
-                                                <mat-icon matTooltip="Edit" (click)="edit(classes_drawer, item)">
+                                                <mat-icon matTooltip="Edit" (click)="edit(assignments_drawer, item)">
                                                     edit
                                                 </mat-icon>
                                             </button>
                                             <button mat-mini-fab>
-                                                <mat-icon matTooltip="Assignments"
-                                                    (click)="gotoClassAssignments(classes_drawer, item)">
+                                                <mat-icon matTooltip="Groups"
+                                                    (click)="gotoAssignmentGroups(assignments_drawer, item)">
                                                     view_list
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Upload students file"
-                                                    (click)="uploadStudents(classes_drawer, item)">
-                                                    upload_file
                                                 </mat-icon>
                                             </button>
                                         </div>
