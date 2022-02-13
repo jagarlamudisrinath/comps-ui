@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,8 @@ import { CUClassComponent } from './components/c-u-class/c-u-class.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { AssignmentsComponent } from './components/assignments/assignments.component';
 import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignment.component';
+import { GroupsComponent } from './components/groups/groups.component';
+import { GroupStudentsComponent } from './components/group-students/group-students.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignmen
     CUClassComponent,
     FileUploadComponent,
     AssignmentsComponent,
-    CUAssignmentComponent
+    CUAssignmentComponent,
+    GroupsComponent,
+    GroupStudentsComponent
   ],
   imports: [
     HttpClientModule,
@@ -53,7 +58,8 @@ import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignmen
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

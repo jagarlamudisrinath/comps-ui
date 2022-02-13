@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CommunicationsService } from './communications.service';
 import { Class } from '../models/class';
 import { Assignment } from '../models/assignment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,56 @@ export class ResourcesService {
   createOrUpdateAssignment = (classId: string, cl: Assignment, s: any, f: any) => {
     const slug = "/assignments?classId=" + classId;
     this.comm.post(slug, cl,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null);
+  }
+
+  getAssignmentGroups = (assignmentId: string, s: any, f: any) => {
+    const slug: string = "/groups?assignmentId=" + assignmentId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
+  getGroupStudents = (groupId: string, s: any, f: any) => {
+    const slug: string = "/users?groupId=" + groupId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
+  getClassStudents = (classId: string, s: any, f: any) => {
+    const slug: string = "/users?classId=" + classId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
+  assignStudentsToGroup = (groupId: string, users: User[], s: any, f: any) => {
+    const slug = "/groups/" + groupId + "/assignStudents";
+    this.comm.post(slug, users,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null);
+  }
+
+  unAssignStudentsFromGroup = (groupId: string, users: User[], s: any, f: any) => {
+    const slug = "/groups/" + groupId + "/unassignStudents";
+    this.comm.post(slug, users,
       (res: any) => {
         s(res);
       }, (res: any) => {

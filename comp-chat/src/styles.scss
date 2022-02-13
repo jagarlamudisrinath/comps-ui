@@ -306,3 +306,106 @@ mat-card {
         }
     }
 }
+
+.drag-drop-list {
+    height: 100%;
+
+    .students-list-container {
+        height: 100%;
+        width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+
+        
+        .student-list-header {
+            border-bottom: 1px solid #ccc;
+            padding: 7px 10px 0px 10px;
+            background: #bbb;
+
+            h2 { font-size: 16px; }
+
+            .custom-search mat-form-field .mat-form-field-wrapper .mat-form-field-flex {
+                background-color: $white-color;
+                border-radius: 6px;
+            }
+        }
+
+        .students-list {
+            padding: 5px 10px;
+
+            &.cdk-drop-list-dragging .student-snippet:not(.cdk-drag-placeholder) {
+                transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+            }
+
+            .empty-msg {
+                font-size: 13px;
+                color: #aaa;
+                text-align: center;
+                position: relative;
+                top: 30%;
+            }
+
+            .student-snippet {
+                padding: 10px;
+                margin: 2px;
+                border: solid 1px #ccc;
+                border-radius: 4px;
+                color: $default-font-color;
+                box-sizing: border-box;
+                cursor: move;
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                mat-checkbox {
+                    padding: 0 5px !important;
+                    .mat-checkbox-inner-container {
+                        margin-right: 5px;
+                        height: 14px !important;
+                        width: 14px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .assign-buttons {
+        height: 100%;
+        width: 200px;
+        display: grid;
+        padding: 0 15px;
+        text-align: center;
+
+        button {
+            width: 150px;
+            margin-bottom: 20px;
+            vertical-align: middle;
+            position: relative;
+            top: 30%;
+            mat-icon, span {
+                color: $white-color !important;
+            }
+        }
+    }
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    mat-checkbox {
+        display: none;
+    }
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
