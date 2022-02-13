@@ -1,1 +1,58 @@
-<p>users works!</p>
+<mat-drawer-container class="drawerContainer" autosize>
+    <mat-drawer #users_drawer class="inner" mode="side" disableClose position='end'>
+        <div *ngIf="!showTemplate" class="h-100">
+            <div [ngSwitch]="showSlideTemplate" class="h-100">
+                <ng-template [ngSwitchCase]="'IMPORT_USER'">
+                    <app-file-upload [title]='"Upload Users File"' [type]="'UPLOAD_USERS'" [componentId]='""'
+                        [componentName]='""' [drawer]='users_drawer' [multiple]='false' [acceptedFileTypes]='".csv"'
+                        [filesCount]='1' (slide)="slide($event)">
+                    </app-file-upload>
+                </ng-template>
+            </div>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="inner custom-header">
+        <div *ngIf="showTemplate" class="h-100">
+            <div class="header">
+                <mat-toolbar class="p-0">
+                    <span class="name">USERS</span>
+                    <!-- <span class="custom-search">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" autocomplete="off">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </span> -->
+                    <span matTooltip="Import users" class="material-icons pull-right">
+                        <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
+                            (click)="add(users_drawer)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </span>
+                </mat-toolbar>
+                <mat-divider></mat-divider>
+            </div>
+            <div slim-scroll [offset]="69" [alwaysVisible]="true">
+                <div class="content">
+                    <mat-grid-list cols="4" rowHeight="125px">
+                        <mat-grid-tile *ngFor="let item of users">
+                            <mat-card>
+                                <mat-card-header class="no-actions">
+                                    <mat-card-title class="text-overflow"
+                                        matTooltip="{{item.firstName}} {{item.lastName}}">
+                                        {{item.firstName}} {{item.lastName}}
+                                    </mat-card-title>
+                                    <mat-card-subtitle class="text-overflow" matTooltip="{{item.email}}">{{item.email}}
+                                    </mat-card-subtitle>
+                                    <mat-card-subtitle class="text-center text-overflow mt-0 mb-1"
+                                        matTooltip="{{item.type}}"> {{item.type}} </mat-card-subtitle>
+                                </mat-card-header>
+                            </mat-card>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+<div>
