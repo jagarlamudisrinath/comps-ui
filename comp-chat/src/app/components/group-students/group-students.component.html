@@ -32,13 +32,14 @@
                             <span class="custom-search m-0 pt-1">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Search</mat-label>
-                                    <input matInput (keyup)="applyFilter($event)" autocomplete="off">
+                                    <input matInput [(ngModel)]="filteredGroupStudentsStr"
+                                        (keyup)="filterGroupStudents()" autocomplete="off">
                                     <mat-icon matSuffix>search</mat-icon>
                                 </mat-form-field>
                             </span>
                         </div>
-                        <div cdkDropList [cdkDropListData]="groupStudents" cdkDropListSortingDisabled
-                            class="students-list" (cdkDropListDropped)="drop($event, 'GROUP')">
+                        <div cdkDropList [cdkDropListData]="filteredGroupStudents" class="students-list"
+                            (cdkDropListDropped)="drop($event, 'GROUP')">
                             <div slim-scroll [offset]="58" [alwaysVisible]="true">
                                 <div *ngIf="groupStudents.length === 0 then temp1 else temp2"></div>
                                 <ng-template #temp1>
@@ -47,8 +48,8 @@
                                     <p class="empty-msg">Select students and click on assign button.</p>
                                 </ng-template>
                                 <ng-template #temp2>
-                                    <div class="student-snippet" *ngFor="let item of groupStudents" id="{{item.id}}"
-                                        cdkDrag>
+                                    <div class="student-snippet" *ngFor="let item of filteredGroupStudents"
+                                        id="{{item.id}}" cdkDrag>
                                         <mat-checkbox name='selected' [(ngModel)]='item.selected'></mat-checkbox>
                                         {{item.firstName}} {{item.lastName}}
                                     </div>
@@ -74,14 +75,15 @@
                             <span class="custom-search m-0 pt-1">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Search</mat-label>
-                                    <input matInput (keyup)="applyFilter($event)" autocomplete="off">
+                                    <input matInput [(ngModel)]="filteredClassStudentsStr"
+                                        (keyup)="filterClassStudents()" autocomplete="off">
                                     <mat-icon matSuffix>search</mat-icon>
                                 </mat-form-field>
                             </span>
                         </div>
                         <mat-divider></mat-divider>
-                        <div cdkDropList [cdkDropListData]="classStudents" (cdkDropListDropped)="drop($event, 'CLASS')"
-                            class="students-list">
+                        <div cdkDropList [cdkDropListData]="filteredClassStudents"
+                            (cdkDropListDropped)="drop($event, 'CLASS')" class="students-list">
                             <div slim-scroll [offset]="58" [alwaysVisible]="true">
                                 <div *ngIf="classStudents.length === 0 then temp3 else temp4"></div>
                                 <ng-template #temp3>
@@ -89,8 +91,8 @@
                                     <p class="empty-msg">All class students are assigned to groups.</p>
                                 </ng-template>
                                 <ng-template #temp4>
-                                    <div *ngFor="let item of classStudents" class="student-snippet" id="{{item.id}}"
-                                        cdkDrag>
+                                    <div *ngFor="let item of filteredClassStudents" class="student-snippet"
+                                        id="{{item.id}}" cdkDrag>
                                         <mat-checkbox name='selected' [(ngModel)]='item.selected'> </mat-checkbox>
                                         {{item.firstName}} {{item.lastName}}
                                     </div>
