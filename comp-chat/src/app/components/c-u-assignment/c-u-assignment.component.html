@@ -47,7 +47,7 @@
                     <mat-label>Assignment File *</mat-label>
                     <ngx-dropzone class="custom" [multiple]="false" [accept]="'.doc,.txt,.pdf'"
                         (change)="onSelect($event)" [disabled]="!isNew">
-                        <ngx-dropzone-label *ngIf="isNew">Drag or Drop file here !!!</ngx-dropzone-label>
+                        <ngx-dropzone-label *ngIf="isNew">Select or Drop file here !!!</ngx-dropzone-label>
                         <ngx-dropzone-label *ngIf="!isNew">File will not be updated.</ngx-dropzone-label>
                         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                             <ngx-dropzone-label>
