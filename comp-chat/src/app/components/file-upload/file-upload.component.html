@@ -14,7 +14,9 @@
     <div slim-scroll [offset]="65" [alwaysVisible]="true">
         <form novalidate #f='ngForm' autocomplete="off">
             <ngx-dropzone [multiple]="multiple" [accept]="acceptedFileTypes" (change)="onSelect($event)">
-                <ngx-dropzone-label>Drag or Drop files here !!!</ngx-dropzone-label>
+                <ngx-dropzone-label>
+                    Drag and Drop files here (OR) Click to select the file.
+                </ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                     <ngx-dropzone-label>
                         <div>{{ f.name }}</div>

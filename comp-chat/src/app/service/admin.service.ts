@@ -13,6 +13,7 @@ import { ResourcesService } from '../services/resources.service';
 })
 export class AdminService {
 
+  users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   classes: BehaviorSubject<Class[]> = new BehaviorSubject<Class[]>([]);
   professors: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   graduateAssistants: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
@@ -23,8 +24,47 @@ export class AdminService {
 
   constructor(private resources: ResourcesService) { }
 
+  getUsers = (f: any) => {
+    this.users.next([
+      { id: '1', firstName: 'Test', lastName: 'User A', email: 'user_a@gmail.com', type: UserType.ADMIN },
+      { id: '2', firstName: 'Test', lastName: 'User B', email: 'user_b@gmail.com', type: UserType.PROFESSOR },
+      { id: '3', firstName: 'Test', lastName: 'User C', email: 'user_c@gmail.com', type: UserType.PROFESSOR },
+      { id: '4', firstName: 'Test', lastName: 'User D', email: 'user_d@gmail.com', type: UserType.GA },
+      { id: '5', firstName: 'Test', lastName: 'User E', email: 'user_e@gmail.com', type: UserType.GA },
+      { id: '1', firstName: 'Test', lastName: 'User A', email: 'user_a@gmail.com', type: UserType.ADMIN },
+      { id: '2', firstName: 'Test', lastName: 'User B', email: 'user_b@gmail.com', type: UserType.PROFESSOR },
+      { id: '3', firstName: 'Test', lastName: 'User C', email: 'user_c@gmail.com', type: UserType.PROFESSOR },
+      { id: '4', firstName: 'Test', lastName: 'User D', email: 'user_d@gmail.com', type: UserType.GA },
+      { id: '5', firstName: 'Test', lastName: 'User E', email: 'user_e@gmail.com', type: UserType.GA },
+      { id: '6', firstName: 'Test', lastName: 'User F', email: 'user_f@gmail.com', type: UserType.PROFESSOR }
+    ]);
+    /* this.resources.getUsers(
+      (response: User[]) => {
+        this.users.next(response);
+      }, (response: any) => {
+        this.users.next([]);
+        f(response);
+      }); */
+  }
+
+  uploadUsers = (formData: any, s: any, f: any) => {
+    this.resources.uploadUsers(formData,
+      (response: any) => {
+        this.getUsers(f);
+        s(response);
+      }, (response: any) => {
+        f(response);
+      });
+  }
+
   getClasses = () => {
     this.classes.next([
+      { id: "a", title: "Class A", description: '', profId: "1", gaId: '1' },
+      { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
+      { id: "a", title: "Class A", description: '', profId: "1", gaId: '1' },
+      { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
+      { id: "a", title: "Class A", description: '', profId: "1", gaId: '1' },
+      { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
       { id: "a", title: "Class A", description: '', profId: "1", gaId: '1' },
       { id: "b", title: "Class B", description: '', profId: "2", gaId: '2' },
       { id: "c", title: "Class C", description: '', profId: "3", gaId: '3' }

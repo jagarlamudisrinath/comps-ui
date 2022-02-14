@@ -33,6 +33,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     background: #fff;
 }
 
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .closeIconColor {
     background: #616161 !important;
 }
@@ -175,17 +181,27 @@ button:focus {
         mat-card {
             width: 95%;
             background: #eee;
+            .mat-card-header {
+                .mat-card-header-text {
+                    width: 100%;
+                    margin: 0;
+                    font-size: 16px;
+                    border-bottom: 1px dotted #343a40;
 
-            .mat-card-header-text {
-                width: 100%;
-                margin: 0;
-                font-size: 16px;
-                border-bottom: 1px dotted #343a40;
+                    mat-card-title {
+                        font-size: 15px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+
+                &.no-actions {
+                    .mat-card-header-text{
+                        border: none !important;
+                    }
+                }
             }
-        }
-
-        mat-card-header mat-card-title {
-            font-size: 15px;
         }
     }
 }

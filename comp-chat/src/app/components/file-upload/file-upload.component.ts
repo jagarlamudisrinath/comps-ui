@@ -55,6 +55,15 @@ export class FileUploadComponent implements OnInit {
             alert('Error in upload.')
           });
         break;
+      case 'UPLOAD_USERS':
+        this.adminService.uploadUsers(formData,
+          (response: any) => {
+            this.slide.emit(this.drawer);
+            alert('Users uploaded successfully.')
+          }, (response: any) => {
+            alert('Error in upload.')
+          });
+        break;
     }
   }
 

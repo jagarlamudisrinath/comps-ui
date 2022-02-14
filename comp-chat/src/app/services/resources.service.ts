@@ -12,6 +12,26 @@ export class ResourcesService {
 
   constructor(private comm: CommunicationsService) { }
 
+  getUsers = (s: any, f: any) => {
+    const slug: string = "/users";
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
+  uploadUsers = (formData: any, s: any, f: any) => {
+    const slug = "/users/upload";
+    this.comm.post(formData,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null);
+  }
+
   getClasses = (s: any, f: any) => {
     const slug: string = "/classes";
     this.comm.get(slug,
