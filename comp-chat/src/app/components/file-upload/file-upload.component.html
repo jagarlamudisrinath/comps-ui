@@ -32,6 +32,6 @@
         </form>
     </div>
     <div class="d-flex justify-content-end pe-4">
-        <button mat-raised-button color="primary" (click)="upload()">Upload</button>
+        <button mat-raised-button color="primary" (click)="upload()" [disabled]="files.length === 0">Upload</button>
     </div>
 </div>

@@ -15,13 +15,30 @@ export class CUAssignmentComponent implements OnInit {
   @Input() drawer: any;
   @Output() slide: any = new EventEmitter();
 
+  files: File[] = [];
+  filesErrorMessage: string = '';
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
   }
 
+  onSelect = (event: any) => {
+    this.filesErrorMessage = '';
+    if (this.files.length === 1) {
+      this.filesErrorMessage = `Only 1 file can be uploaded.`;
+    } else {
+      this.files.push(...event.addedFiles);
+    }
+  }
+
+  onRemove(event: any) {
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
   save = () => {
-    this.adminService.createOrUpdateAssignment(this.classId, this.selectedAssignment,
+    let file = this.isNew ? this.files[0] : null;
+    this.adminService.createOrUpdateAssignment(this.selectedAssignment, file,
       (response: Assignment) => {
         if (this.isNew) {
           alert(`Assignment [ ${response.title} ] created successfully.`);

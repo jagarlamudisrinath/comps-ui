@@ -5,6 +5,7 @@ import { Assignment } from 'src/app/models/assignment';
 import { Class } from 'src/app/models/class';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-assignments',
@@ -27,7 +28,8 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
 
   constructor(
     private commonUtils: CommonUtilsService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private rootScope: RootScopeService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +54,9 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
     this.isNew = true;
     this.showSlideTemplate = "CREATE_ASSIGNMENT";
     this.originalAssignment = new Assignment();
+    this.originalAssignment.classId = this.class.id;
     this.selectedAssignment = new Assignment();
+    this.selectedAssignment.classId = this.class.id;
     this.slide(drawer);
   }
 
@@ -62,6 +66,11 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
     this.originalAssignment = cl;
     this.selectedAssignment = CommonUtilsService.cloneObject(cl);
     this.slide(drawer)
+  }
+
+  downloadAssignmentFile = (drawer: any, cl: Assignment) => {
+    let url = this.rootScope.APP_ROOT_URL + 'assignments/' + cl.id + '/fileDownload';
+    window.location.href = url;
   }
 
   gotoAssignmentGroups = (drawer: any, cl: Assignment) => {
