@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  app_root_url: "http://localhost:8080/comp-chat"
+  app_root_url: "http://localhost:8080/"
 };

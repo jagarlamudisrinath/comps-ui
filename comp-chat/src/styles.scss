@@ -198,6 +198,39 @@ ngx-dropzone {
     justify-content: center;
     margin: 20px 40px;
     height: 300px !important;
+
+    &.custom {
+        margin: 0 !important;
+        height: 100px !important;
+        ngx-dropzone-preview {
+            height: 60px !important;
+            margin: 0 !important;
+            min-width: 180px !important;
+            min-height: 60px !important;
+
+            ngx-dropzone-label {
+                font-size: 10px !important;
+                mat-icon {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+}
+
+.small-drop-zone {
+    margin-top: -15px !important;
+    mat-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #000000a3 !important;
+        position: relative;
+        top: 11px;
+        left: 14px;
+        background: #fff !important;
+        padding: 0 10px;
+        z-index: 1;
+    }
 }
 
 form mat-form-field {
