@@ -51,13 +51,17 @@ export class GroupsComponent implements OnInit {
   }
 
   add = (drawer: any) => {
-    this.isNew = true;
-    this.showSlideTemplate = "CREATE_GROUP";
-    this.originalGroup = new Group();
-    this.originalGroup.assignmentId = this.assignment.id;
-    this.selectedGroup = new Group();
-    this.selectedGroup.assignmentId = this.assignment.id;
-    this.slide(drawer);
+    if (this.assignment.noOfGroups === this.groups.length) {
+      alert(`Unable create new group. You have reached maximum [ ${this.assignment.noOfGroups} ] groups for this assignment [ ${this.assignment.title} ].`);
+    } else {
+      this.isNew = true;
+      this.showSlideTemplate = "CREATE_GROUP";
+      this.originalGroup = new Group();
+      this.originalGroup.assignmentId = this.assignment.id;
+      this.selectedGroup = new Group();
+      this.selectedGroup.assignmentId = this.assignment.id;
+      this.slide(drawer);
+    }
   }
 
   edit = (drawer: any, cl: Group) => {
