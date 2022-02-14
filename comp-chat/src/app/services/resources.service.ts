@@ -3,6 +3,7 @@ import { CommunicationsService } from './communications.service';
 import { Class } from '../models/class';
 import { Assignment } from '../models/assignment';
 import { User } from '../models/user';
+import { Group } from '../models/group';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,16 @@ export class ResourcesService {
       }, (res: any) => {
         f(res);
       }, null, null);
+  }
+
+  createOrUpdateGroup = (classId: string, assignmentId: string, group: Group, s: any, f: any) => {
+    const slug = "/groups";
+    this.comm.post(slug, group,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null);
   }
 
   getGroupStudents = (groupId: string, s: any, f: any) => {

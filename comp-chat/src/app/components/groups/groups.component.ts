@@ -23,7 +23,9 @@ export class GroupsComponent implements OnInit {
   showGroupsTemplate: boolean = true;
   showSlideTemplate: string = "ASSIGNMENT_GROUPS";
   groups: Group[] = [];
+  originalGroup: Group = new Group();
   selectedGroup: Group = new Group();
+  isNew: boolean = false;
 
   constructor(
     private commonUtils: CommonUtilsService,
@@ -46,6 +48,24 @@ export class GroupsComponent implements OnInit {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+  }
+
+  add = (drawer: any) => {
+    this.isNew = true;
+    this.showSlideTemplate = "CREATE_GROUP";
+    this.originalGroup = new Group();
+    this.originalGroup.assignmentId = this.assignment.id;
+    this.selectedGroup = new Group();
+    this.selectedGroup.assignmentId = this.assignment.id;
+    this.slide(drawer);
+  }
+
+  edit = (drawer: any, cl: Group) => {
+    this.isNew = false;
+    this.showSlideTemplate = "CREATE_GROUP";
+    this.originalGroup = cl;
+    this.selectedGroup = CommonUtilsService.cloneObject(cl);
+    this.slide(drawer)
   }
 
   gotoGroupStudents = (drawer: any, cl: Group) => {

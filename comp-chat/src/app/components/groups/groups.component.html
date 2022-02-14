@@ -3,6 +3,9 @@
         <div *ngIf="!showGroupsTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
                 <ng-template [ngSwitchCase]="'CREATE_GROUP'">
+                    <app-c-u-group [isNew]="isNew" [originalGroup]="originalGroup" [selectedGroup]="selectedGroup"
+                        [classId]="class.id" [assignmentId]="assignment.id" [drawer]="groups_drawer"
+                        (slide)="slide($event)"></app-c-u-group>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'GROUP_STUDENTS'">
                     <app-group-students [class]="class" [assignment]="assignment" [group]="selectedGroup"
@@ -30,6 +33,12 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
+                    <span matTooltip="Add new group" class="material-icons pull-right">
+                        <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
+                            (click)="add(groups_drawer)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </span>
                 </mat-toolbar>
                 <mat-divider></mat-divider>
             </div>
@@ -47,6 +56,11 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1"> </div>
                                         <div>
+                                            <button mat-mini-fab>
+                                                <mat-icon matTooltip="Edit" (click)="edit(groups_drawer, item)">
+                                                    edit
+                                                </mat-icon>
+                                            </button>
                                             <button mat-mini-fab>
                                                 <mat-icon matTooltip="Add students to group"
                                                     (click)="gotoGroupStudents(groups_drawer, item)">

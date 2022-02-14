@@ -133,6 +133,16 @@ export class AdminService {
       }); */
   }
 
+  createOrUpdateGroup = (classId: string, assignmentId: string, group: Group, s: any, f: any) => {
+    this.resources.createOrUpdateGroup(classId, assignmentId, group,
+      (response: Group) => {
+        s(response);
+        this.getAssignmentGroups(assignmentId, f);
+      }, (response: any) => {
+        f(response);
+      });
+  }
+
   getGroupStudents = (groupId: string, f: any) => {
     this.groupStudents.next([
       { id: '1', firstName: 'User', lastName: 'A', email: 'user_a@gmail.com', type: UserType.GA },
