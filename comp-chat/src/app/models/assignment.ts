@@ -3,5 +3,5 @@ export class Assignment {
     title: string = '';
     classId: string = '';
     noOfGroups: number = 1;
-    question: string = '';
+    description: string = '';
 }

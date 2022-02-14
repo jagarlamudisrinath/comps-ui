@@ -60,6 +60,12 @@
                                                 </mat-icon>
                                             </button>
                                             <button mat-mini-fab>
+                                                <mat-icon matTooltip="Download assignment file"
+                                                    (click)="downloadAssignmentFile(assignments_drawer, item)">
+                                                    file_download
+                                                </mat-icon>
+                                            </button>
+                                            <button mat-mini-fab>
                                                 <mat-icon matTooltip="Groups"
                                                     (click)="gotoAssignmentGroups(assignments_drawer, item)">
                                                     view_list

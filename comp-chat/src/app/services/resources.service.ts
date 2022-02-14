@@ -70,8 +70,8 @@ export class ResourcesService {
       }, null, null);
   }
 
-  createOrUpdateAssignment = (classId: string, cl: Assignment, s: any, f: any) => {
-    const slug = "/assignments?classId=" + classId;
+  createOrUpdateAssignment = (cl: Assignment, file: any, s: any, f: any) => {
+    const slug = "/assignments?file=" + file;
     this.comm.post(slug, cl,
       (res: any) => {
         s(res);
