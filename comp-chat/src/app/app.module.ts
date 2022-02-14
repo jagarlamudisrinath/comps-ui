@@ -27,6 +27,7 @@ import { AssignmentsComponent } from './components/assignments/assignments.compo
 import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignment.component';
 import { GroupsComponent } from './components/groups/groups.component';
 import { GroupStudentsComponent } from './components/group-students/group-students.component';
+import { CUGroupComponent } from './components/c-u-group/c-u-group.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { GroupStudentsComponent } from './components/group-students/group-studen
     AssignmentsComponent,
     CUAssignmentComponent,
     GroupsComponent,
-    GroupStudentsComponent
+    GroupStudentsComponent,
+    CUGroupComponent
   ],
   imports: [
     HttpClientModule,

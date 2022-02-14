@@ -135,9 +135,9 @@ export class AdminService {
 
   getClassAssignments = (classId: string, f: any) => {
     this.classAssignments.next([
-      { id: "a", title: "Assignment A", noOfGroups: 3, classId: '1', question: 'Question 1' },
-      { id: "b", title: "Assignment B", noOfGroups: 5, classId: '1', question: 'Question 1' },
-      { id: "c", title: "Assignment C", noOfGroups: 2, classId: '1', question: 'Question 1' }
+      { id: "a", title: "Assignment A", noOfGroups: 3, classId: '1', description: 'Question 1' },
+      { id: "b", title: "Assignment B", noOfGroups: 5, classId: '1', description: 'Question 1' },
+      { id: "c", title: "Assignment C", noOfGroups: 2, classId: '1', description: 'Question 1' }
     ]);
     /* this.resources.getClassAssignments(classId,
       (response: Assignment[]) => {
@@ -148,11 +148,11 @@ export class AdminService {
       }); */
   }
 
-  createOrUpdateAssignment = (classId: string, cl: Assignment, s: any, f: any) => {
-    this.resources.createOrUpdateAssignment(classId, cl,
+  createOrUpdateAssignment = (cl: Assignment, file: any, s: any, f: any) => {
+    this.resources.createOrUpdateAssignment(cl, file,
       (response: Assignment) => {
         s(response);
-        this.getClassAssignments(classId, f);
+        this.getClassAssignments(cl.classId, f);
       }, (response: any) => {
         f(response);
       });
@@ -171,6 +171,16 @@ export class AdminService {
         this.assignmentGroups.next([]);
         f(response);
       }); */
+  }
+
+  createOrUpdateGroup = (classId: string, assignmentId: string, group: Group, s: any, f: any) => {
+    this.resources.createOrUpdateGroup(classId, assignmentId, group,
+      (response: Group) => {
+        s(response);
+        this.getAssignmentGroups(assignmentId, f);
+      }, (response: any) => {
+        f(response);
+      });
   }
 
   getGroupStudents = (groupId: string, f: any) => {
