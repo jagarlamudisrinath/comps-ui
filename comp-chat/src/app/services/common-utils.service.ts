@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonUtilsService {
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
+
+  openSnackBar = (message: string, time?: number) => {
+    time = (time === undefined) ? 4000 : time;
+    this.snackBar.open(message, 'x', { duration: time });
+  }
 
   static cloneObject = (dataObject: any): any => {
     const newObj: any = (dataObject instanceof Array) ? [] : {};

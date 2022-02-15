@@ -12,7 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -29,7 +29,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatGridListModule,
     MatAutocompleteModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -43,7 +44,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatGridListModule,
     MatAutocompleteModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

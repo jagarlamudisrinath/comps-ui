@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserType } from 'src/app/enums/user-type';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 import { ResourcesService } from 'src/app/services/resources.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +12,47 @@ import { ResourcesService } from 'src/app/services/resources.service';
 })
 export class LoginComponent implements OnInit {
   user: any = {
+    type: UserType.ADMIN,
     username: '',
     password: ''
   }
 
-  constructor(private resources: ResourcesService) { }
+  constructor(
+    private resources: ResourcesService,
+    private router: Router,
+    private rootScope: RootScopeService,
+    private commonUtils: CommonUtilsService
+  ) { }
 
   ngOnInit(): void {
   }
 
   login = () => {
-    this.resources.login(this.user,
+    let formData = new FormData();
+    formData.append('username', this.user.username);
+    formData.append('password', this.user.password);
+    this.resources.login(formData,
       (response: any) => {
-        alert('Login successful.')
+        this.commonUtils.openSnackBar('Login successful.');
+        this.rootScope.IS_USER_LOGGED_IN.next(true);
+        let url = '';
+        switch (this.user.type) {
+          case UserType.ADMIN:
+            url = '/admin'
+            break;
+          case UserType.STUDENT:
+            url = '/student'
+            break;
+          case UserType.PROFESSOR:
+            url = '/admin'
+            break;
+          case UserType.GA:
+            url = '/admin'
+            break;
+        }
+        this.router.navigate([url]);
       }, (response: any) => {
-        alert('Login not successful.')
+        this.commonUtils.openSnackBar('Login failed.');
       });
   }
 }
