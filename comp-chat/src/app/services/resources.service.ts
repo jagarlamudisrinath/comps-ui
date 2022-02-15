@@ -12,6 +12,17 @@ export class ResourcesService {
 
   constructor(private comm: CommunicationsService) { }
 
+  login = (credentials: any, s: any, f: any) => {
+    const headers = { headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } }
+    const slug = '/login';
+    this.comm.post(slug, credentials,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, headers);
+  }
+
   getUsers = (s: any, f: any) => {
     const slug: string = "/users";
     this.comm.get(slug,

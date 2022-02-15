@@ -13,7 +13,7 @@ $default-font-color: #000000de;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $default-font-color; }
 
-.app-header {
+.app-header:not(.with-out-header) {
     background-color: $banner-color;
     color: $white-color;
     font-weight: 600;
@@ -31,6 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     font-size: 14px;
     height: 48px !important;
     background: #fff;
+    justify-content: center;
 }
 
 .text-overflow {

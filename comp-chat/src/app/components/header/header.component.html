@@ -1,5 +1,11 @@
-<mat-toolbar class="app-header">
-    <span>COMP CHAT</span>
-    <span class="middle-space"></span>
-    <mat-icon>account_circle</mat-icon>
-</mat-toolbar>
+<div *ngIf="rootScope.IS_USER_LOGGED_IN.value then lg1 else lg2"></div>
+<ng-template #lg1>
+    <mat-toolbar class="app-header">
+        <span>COMP CHAT</span>
+        <span class="middle-space"></span>
+        <mat-icon>account_circle</mat-icon>
+    </mat-toolbar>
+</ng-template>
+<ng-template #lg2>
+    <mat-toolbar class="app-header with-out-header bg-white"> </mat-toolbar>
+</ng-template>

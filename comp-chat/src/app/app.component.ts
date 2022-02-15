@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RootScopeService } from './services/root-scope.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'comp-chat';
+
+  constructor(public rootScope: RootScopeService) { }
 }

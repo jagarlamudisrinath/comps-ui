@@ -9,7 +9,8 @@ import { User } from '../models/user';
 export class RootScopeService {
   APP_ROOT_URL = environment.app_root_url;
 
-  LOGGED_IN_USER: BehaviorSubject<User> = new BehaviorSubject(new User());
+  IS_USER_LOGGED_IN: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  LOGGED_IN_USER: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   REQUEST_LOADING: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   REQUEST_COUNT: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
