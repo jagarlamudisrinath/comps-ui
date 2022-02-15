@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
   login = () => {
@@ -33,8 +34,11 @@ export class LoginComponent implements OnInit {
     formData.append('password', this.user.password);
     this.resources.login(formData,
       (response: any) => {
-        this.commonUtils.openSnackBar('Login successful.');
+        this.rootScope.LOGGED_IN_USER.value.firstName = response.userId;
         this.rootScope.IS_USER_LOGGED_IN.next(true);
+        localStorage.setItem('IS_USER_LOGGED_IN', 'true');
+        localStorage.setItem('LOGGED_IN_USER', JSON.stringify({ firstName: response.userId }));
+        this.commonUtils.openSnackBar('Login successful.');
         let url = '';
         switch (this.user.type) {
           case UserType.ADMIN:

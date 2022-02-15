@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +64,8 @@ import { LoginComponent } from './components/login/login.component';
     MaterialModule,
     AppRoutingModule,
     NgxDropzoneModule,
-    DragDropModule
+    DragDropModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,6 +23,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     }
 }
 
+.header-user-info {
+    width: auto;
+    max-width: 250px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+
+    mat-card {
+        box-shadow: none !important;
+        padding-top: 0 !important;
+        mat-card-title {
+            font-size: 16px;
+        }
+    }
+    
+    button {
+        padding: 0px 30px;
+    }
+}
+
 .app-main {
     height: calc(100% - 64px - 48px); /* calculating height without header and footer height */
 }
