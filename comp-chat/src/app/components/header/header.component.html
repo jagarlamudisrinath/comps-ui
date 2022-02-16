@@ -3,15 +3,16 @@
     <mat-toolbar class="app-header">
         <span>COMP CHAT</span>
         <span class="middle-space"></span>
-        <mat-icon (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">account_circle
+        <mat-icon (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+            account_circle
         </mat-icon>
         <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
             [cdkConnectedOverlayHasBackdrop]="true" (detach)="isOpen = false" (backdropClick)="isOpen = false">
             <div class="header-user-info">
                 <mat-card>
                     <mat-card-title>{{loggedInUser.firstName}} {{loggedInUser.lastName}}</mat-card-title>
-                    <mat-card-subtitle>{{loggedInUser.email}} test@gmail.com</mat-card-subtitle>
-                    <mat-card-subtitle>{{loggedInUser.type}} ADMIN</mat-card-subtitle>
+                    <mat-card-subtitle>{{loggedInUser.email}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{loggedInUser.type}}</mat-card-subtitle>
                 </mat-card>
                 <button mat-raised-button color="accent" (click)="logout()">Logout</button>
             </div>

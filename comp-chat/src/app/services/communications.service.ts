@@ -85,8 +85,8 @@ export class CommunicationsService {
           url: ''
         };
         macreError = error ? error : macreError;
-        if (macreError.status === 401 && macreError.url.indexOf('sign-in') === -1) {
-          this.router.navigate(['sign-in']);
+        if (macreError.status === 401 && macreError.url.indexOf('login') === -1) {
+          this.router.navigate(['login']);
           f(macreError.error);
         } else {
           f(macreError.error);
