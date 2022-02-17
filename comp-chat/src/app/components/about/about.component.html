@@ -9,7 +9,10 @@
                     </app-c-u-class>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'CREATE_USER'">
-
+                    <app-file-upload [title]='"Upload Users File"' [type]="'UPLOAD_USERS'" [componentId]='""'
+                        [componentName]='""' [drawer]='about_drawer' [multiple]='false' [acceptedFileTypes]='".csv"'
+                        [filesCount]='1' (slide)="slide($event)">
+                    </app-file-upload>
                 </ng-template>
             </div>
         </div>
@@ -42,7 +45,7 @@
                             </button>
                             <button mat-raised-button color="primary" aria-label="Add New User"
                                 matTooltip="Add New User" (click)="addUser(about_drawer)">
-                                <mat-icon>person_add_alt_1</mat-icon> Add User
+                                <mat-icon>person_add_alt_1</mat-icon> Add User(s)
                             </button>
                         </mat-card-actions>
                     </mat-card>
