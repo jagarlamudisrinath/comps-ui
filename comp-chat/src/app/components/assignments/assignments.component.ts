@@ -43,7 +43,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
   }
 
   getAssignments = () => {
-    this.adminService.getClassAssignments(this.class.id, () => { });
+    this.adminService.getClassAssignments(this.class.id);
   }
 
   applyFilter(event: any) {

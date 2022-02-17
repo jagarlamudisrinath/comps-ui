@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-about',
@@ -21,12 +22,10 @@ export class AboutComponent implements OnInit, OnDestroy {
   graduateAssistants: User[] = [];
   professors: User[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private rootScope: RootScopeService, private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.user.firstName = "Test";
-    this.user.lastName = "Admin";
-    this.user.email = "test_email@email.com";
+    this.user = this.rootScope.LOGGED_IN_USER.value;
 
     this.adminService.professors.pipe(
       takeUntil(this.destroy$))

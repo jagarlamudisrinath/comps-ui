@@ -43,7 +43,7 @@ export class GroupsComponent implements OnInit {
   }
 
   getGroups = () => {
-    this.adminService.getAssignmentGroups(this.assignment.id, () => { });
+    this.adminService.getAssignmentGroups(this.assignment.id);
   }
 
   applyFilter(event: any) {
@@ -52,7 +52,7 @@ export class GroupsComponent implements OnInit {
 
   add = (drawer: any) => {
     if (this.assignment.noOfGroups === this.groups.length) {
-      alert(`Unable create new group. You have reached maximum [ ${this.assignment.noOfGroups} ] groups for this assignment [ ${this.assignment.title} ].`);
+      this.commonUtils.openSnackBar(`Unable create new group. You have reached maximum [ ${this.assignment.noOfGroups} ] groups for this assignment [ ${this.assignment.title} ].`);
     } else {
       this.isNew = true;
       this.showSlideTemplate = "CREATE_GROUP";

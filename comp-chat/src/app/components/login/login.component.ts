@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserType } from 'src/app/enums/user-type';
+import { User } from 'src/app/models/user';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 import { ResourcesService } from 'src/app/services/resources.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
@@ -34,10 +35,10 @@ export class LoginComponent implements OnInit {
     formData.append('password', this.user.password);
     this.resources.login(formData,
       (response: any) => {
-        this.rootScope.LOGGED_IN_USER.value.firstName = response.userId;
+        this.rootScope.LOGGED_IN_USER.next(response.user);
+        localStorage.setItem('LOGGED_IN_USER', JSON.stringify(response.user));
         this.rootScope.IS_USER_LOGGED_IN.next(true);
         localStorage.setItem('IS_USER_LOGGED_IN', 'true');
-        localStorage.setItem('LOGGED_IN_USER', JSON.stringify({ firstName: response.userId }));
         this.commonUtils.openSnackBar('Login successful.');
         let url = '';
         switch (this.user.type) {

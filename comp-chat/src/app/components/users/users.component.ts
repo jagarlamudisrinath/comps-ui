@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers = () => {
-    this.adminService.getUsers(() => { });
+    this.adminService.getUsers();
   }
 
   applyFilter(event: any) {

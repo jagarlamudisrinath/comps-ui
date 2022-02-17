@@ -40,19 +40,14 @@ export class CUAssignmentComponent implements OnInit {
     let file = this.isNew ? this.files[0] : null;
     this.adminService.createOrUpdateAssignment(this.selectedAssignment, file,
       (response: Assignment) => {
-        if (this.isNew) {
-          alert(`Assignment [ ${response.title} ] created successfully.`);
-        } else {
-          alert(`Assignment [ ${response.title} ] updated successfully.`);
+        let msg = `Assignment [ ${response.title} ] created successfully.`;
+        if (!this.isNew) {
+          msg = `Assignment [ ${response.title} ] updated successfully.`;
         }
         Object.assign(this.originalAssignment, response);
         Object.assign(this.selectedAssignment, response);
         this.slide.emit(this.drawer);
-      }, (response: any) => {
-        alert('Error in Assignment.')
-      }
-    );
-
+      });
   }
 
 }

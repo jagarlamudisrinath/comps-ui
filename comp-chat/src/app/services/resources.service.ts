@@ -4,6 +4,7 @@ import { Class } from '../models/class';
 import { Assignment } from '../models/assignment';
 import { User } from '../models/user';
 import { Group } from '../models/group';
+import { UserType } from '../enums/user-type';
 
 @Injectable({
   providedIn: 'root'
@@ -63,18 +64,8 @@ export class ResourcesService {
       }, null);
   }
 
-  getProfessors = (s: any, f: any) => {
-    const slug: string = "/users";
-    this.comm.get(slug,
-      (res: any) => {
-        s(res);
-      }, (res: any) => {
-        f(res);
-      }, null, null);
-  }
-
-  getGraduateAssistants = (s: any, f: any) => {
-    const slug: string = "/users";
+  getUsersByType = (type: UserType, s: any, f: any) => {
+    const slug: string = "/users?type=" + type;
     this.comm.get(slug,
       (res: any) => {
         s(res);

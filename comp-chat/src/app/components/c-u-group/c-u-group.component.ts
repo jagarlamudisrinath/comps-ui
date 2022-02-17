@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Group } from 'src/app/models/group';
 import { AdminService } from 'src/app/service/admin.service';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-c-u-group',
@@ -17,25 +18,22 @@ export class CUGroupComponent implements OnInit {
   @Input() drawer: any;
   @Output() slide: any = new EventEmitter();
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private commonUtils: CommonUtilsService) { }
   ngOnInit(): void {
   }
 
   save = () => {
     this.adminService.createOrUpdateGroup(this.classId, this.assignmentId, this.selectedGroup,
       (response: Group) => {
-        if (this.isNew) {
-          alert(`Group [ ${response.title} ] created successfully.`);
-        } else {
-          alert(`Group [ ${response.title} ] updated successfully.`);
+        let msg = `Group [ ${response.title} ] created successfully.`;
+        if (!this.isNew) {
+          msg = `Group [ ${response.title} ] updated successfully.`;
         }
+        this.commonUtils.openSnackBar(msg);
         Object.assign(this.originalGroup, response);
         Object.assign(this.selectedGroup, response);
         this.slide.emit(this.drawer);
-      }, (response: any) => {
-        alert('Error in Group.')
-      }
-    );
+      });
 
   }
 

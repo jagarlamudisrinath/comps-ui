@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
@@ -10,10 +11,10 @@ import { RootScopeService } from 'src/app/services/root-scope.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
   isOpen: boolean = false;
   loggedInUser: User = new User();
-  constructor(public rootScope: RootScopeService, private router: Router) { }
+  constructor(public rootScope: RootScopeService) { }
 
   ngOnInit(): void {
     let isUserLoggedIn = localStorage.getItem('IS_USER_LOGGED_IN') === null ? false : Boolean(localStorage.getItem('IS_USER_LOGGED_IN'));
@@ -26,6 +27,13 @@ export class HeaderComponent implements OnInit {
     } else {
       this.logout();
     }
+
+    this.rootScope.LOGGED_IN_USER.pipe(
+      takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.loggedInUser = result;
+      });
+
   }
 
   logout = () => {

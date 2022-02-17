@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AdminService } from 'src/app/service/admin.service';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -20,11 +21,10 @@ export class FileUploadComponent implements OnInit {
   files: File[] = [];
   filesErrorMessage: string = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private commonUtils: CommonUtilsService) { }
 
   ngOnInit(): void {
   }
-
 
   onSelect = (event: any) => {
     this.filesErrorMessage = '';
@@ -50,18 +50,14 @@ export class FileUploadComponent implements OnInit {
         this.adminService.uploadStudentsToClass(this.componentId, formData,
           (response: any) => {
             this.slide.emit(this.drawer);
-            alert('Students uploaded successfully to class [ ' + this.componentName + ' ].')
-          }, (response: any) => {
-            alert('Error in upload.')
+            this.commonUtils.openSnackBar(`Students uploaded successfully to class [ ${this.componentName} ].`)
           });
         break;
       case 'UPLOAD_USERS':
         this.adminService.uploadUsers(formData,
           (response: any) => {
             this.slide.emit(this.drawer);
-            alert('Users uploaded successfully.')
-          }, (response: any) => {
-            alert('Error in upload.')
+            this.commonUtils.openSnackBar('Users uploaded successfully.');
           });
         break;
     }

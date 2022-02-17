@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-c-u-class',
@@ -23,7 +24,7 @@ export class CUClassComponent implements OnInit {
   gaSearchString: string = "";
   filteredGAs: User[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private commonUtils: CommonUtilsService) { }
 
   ngOnInit(): void {
     this.filteredProfessors = this.getFilteredItems('', this.professors);
@@ -53,19 +54,15 @@ export class CUClassComponent implements OnInit {
   save = () => {
     this.adminService.createOrUpdateClass(this.selectedClass,
       (response: Class) => {
-        if (this.isNew) {
-          alert(`Class [ ${response.title} ] created successfully.`);
-        } else {
-          alert(`Class [ ${response.title} ] updated successfully.`);
+        let msg = `Class [ ${response.title} ] created successfully.`;
+        if (!this.isNew) {
+          msg = `Class [ ${response.title} ] updated successfully.`;
         }
+        this.commonUtils.openSnackBar(msg);
         Object.assign(this.originalClass, response);
         Object.assign(this.selectedClass, response);
         this.slide.emit(this.drawer);
-      }, (response: any) => {
-        alert('Error in class.')
-      }
-    );
-
+      });
   }
 
 }
