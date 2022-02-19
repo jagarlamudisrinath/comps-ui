@@ -25,7 +25,7 @@ export class ResourcesService {
   }
 
   getUsers = (s: any, f: any) => {
-    const slug: string = "/users";
+    const slug: string = "/users/all";
     this.comm.get(slug,
       (res: any) => {
         s(res);
@@ -36,7 +36,7 @@ export class ResourcesService {
 
   uploadUsers = (formData: any, s: any, f: any) => {
     const slug = "/users/upload";
-    this.comm.post(formData,
+    this.comm.post(slug, formData,
       (res: any) => {
         s(res);
       }, (res: any) => {
@@ -75,7 +75,7 @@ export class ResourcesService {
   }
 
   uploadStudentsToClass = (classId: string, formData: any, s: any, f: any) => {
-    const slug = "/class-students/upload?classId=" + classId;
+    const slug = "/class-students/" + classId;
     this.comm.post(slug, formData,
       (res: any) => {
         s(res);
@@ -94,9 +94,9 @@ export class ResourcesService {
       }, null, null);
   }
 
-  createOrUpdateAssignment = (cl: Assignment, file: any, s: any, f: any) => {
-    const slug = "/assignments?file=" + file;
-    this.comm.post(slug, cl,
+  createOrUpdateAssignment = (cl: Assignment, formData: any, s: any, f: any) => {
+    const slug = "/assignments";
+    this.comm.post(slug, formData,
       (res: any) => {
         s(res);
       }, (res: any) => {

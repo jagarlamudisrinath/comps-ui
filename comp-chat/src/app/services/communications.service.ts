@@ -44,7 +44,8 @@ export class CommunicationsService {
     const httpRequest = new HttpRequest(method, url, payload, {
       headers: new HttpHeaders(custom && custom.headers || {}),
       reportProgress: custom && custom["reportProgress"] || false,
-      responseType: custom && custom["responseType"] || "json"
+      responseType: custom && custom["responseType"] || "json",
+      withCredentials: true
     });
     this.http.request(httpRequest).subscribe((event: HttpEvent<any>) => {
       if (event) {

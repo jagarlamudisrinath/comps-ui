@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
 
-  //app_root_url: "http://localhost:8080",
+  app_root_url: "http://localhost:8080",
 
-  app_root_url: "http://34.93.134.191"
+  //app_root_url: "http://34.93.134.191"
 
 };
 

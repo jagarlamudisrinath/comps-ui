@@ -9,7 +9,7 @@ export class CommonUtilsService {
   constructor(private snackBar: MatSnackBar) { }
 
   openSnackBar = (message: string, time?: number) => {
-    time = (time === undefined) ? 4000 : time;
+    time = (time === undefined) ? 7000 : time;
     this.snackBar.open(message, 'x', { duration: time });
   }
 

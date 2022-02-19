@@ -42,7 +42,7 @@ export class FileUploadComponent implements OnInit {
   upload = () => {
     const formData = new FormData();
     for (var i = 0; i < this.files.length; i++) {
-      formData.append('file' + i, this.files[i]);
+      formData.append('file', this.files[i]);
     }
 
     switch (this.type) {

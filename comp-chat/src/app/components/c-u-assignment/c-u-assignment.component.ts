@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from 'src/app/models/assignment';
 import { AdminService } from 'src/app/service/admin.service';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-c-u-assignment',
@@ -18,7 +19,7 @@ export class CUAssignmentComponent implements OnInit {
   files: File[] = [];
   filesErrorMessage: string = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private commonUtils: CommonUtilsService) { }
 
   ngOnInit(): void {
   }
@@ -37,13 +38,17 @@ export class CUAssignmentComponent implements OnInit {
   }
 
   save = () => {
-    let file = this.isNew ? this.files[0] : null;
-    this.adminService.createOrUpdateAssignment(this.selectedAssignment, file,
+    let file = this.isNew ? this.files[0] : '';
+    this.selectedAssignment.file = file;
+    let formData = new FormData();
+    formData.append('assignment', JSON.stringify(this.selectedAssignment));
+    this.adminService.createOrUpdateAssignment(this.selectedAssignment, formData,
       (response: Assignment) => {
         let msg = `Assignment [ ${response.title} ] created successfully.`;
         if (!this.isNew) {
           msg = `Assignment [ ${response.title} ] updated successfully.`;
         }
+        this.commonUtils.openSnackBar(msg);
         Object.assign(this.originalAssignment, response);
         Object.assign(this.selectedAssignment, response);
         this.slide.emit(this.drawer);

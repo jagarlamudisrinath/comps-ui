@@ -4,4 +4,6 @@ export class Assignment {
     classId: string = '';
     noOfGroups: number = 1;
     description: string = '';
+    filename: string = '';
+    file!: any;
 }
