@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('IS_USER_LOGGED_IN', 'true');
         this.commonUtils.openSnackBar('Login successful.');
         let url = '';
-        switch (this.user.type) {
+        switch (response.user.type) {
           case UserType.ADMIN:
             url = '/admin'
             break;

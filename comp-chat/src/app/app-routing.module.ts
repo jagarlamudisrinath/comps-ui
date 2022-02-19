@@ -4,6 +4,7 @@ import { AboutComponent } from './components/about/about.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { LoginComponent } from './components/login/login.component';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent }
     ]
   },
+  { path: 'student', component: StudentDashboardComponent },
 
   { path: '**', redirectTo: 'login' }
 ];
