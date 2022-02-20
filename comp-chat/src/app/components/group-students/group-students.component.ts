@@ -97,11 +97,6 @@ export class GroupStudentsComponent implements OnInit {
           this.unAssign(event.item.element.nativeElement.id, event.currentIndex);
         }
       }
-
-      this.filteredGroupStudentsStr = '';
-      this.filterGroupStudents();
-      this.filteredClassStudentsStr = '';
-      this.filterClassStudents();
     }
   }
 
@@ -110,6 +105,7 @@ export class GroupStudentsComponent implements OnInit {
     this.adminService.assignStudentsToGroup([{ groupId: this.group.id, studentId: user.id }], () => {
       this.classStudents.splice(this.classStudents.indexOf(user), 1);
       this.groupStudents.splice(index, 0, user);
+      this.runFilters();
     });
   }
 
@@ -118,6 +114,7 @@ export class GroupStudentsComponent implements OnInit {
     this.adminService.unAssignStudentsFromGroup([{ groupId: this.group.id, studentId: user.id }], () => {
       this.groupStudents.splice(this.groupStudents.indexOf(user), 1);
       this.classStudents.splice(index, 0, user);
+      this.runFilters();
     });
   }
 
@@ -128,10 +125,7 @@ export class GroupStudentsComponent implements OnInit {
       (response: any) => {
         this.groupStudents.push(...selectedUsers);
         this.removeUsersFromList(selectedUsers, this.classStudents);
-        this.filteredGroupStudentsStr = '';
-        this.filterGroupStudents();
-        this.filteredClassStudentsStr = '';
-        this.filterClassStudents();
+        this.runFilters();
       });
   }
 
@@ -142,11 +136,15 @@ export class GroupStudentsComponent implements OnInit {
       (response: any) => {
         this.classStudents.push(...selectedUsers);
         this.removeUsersFromList(selectedUsers, this.groupStudents);
-        this.filteredGroupStudentsStr = '';
-        this.filterGroupStudents();
-        this.filteredClassStudentsStr = '';
-        this.filterClassStudents();
+        this.runFilters();
       });
+  }
+
+  runFilters = () => {
+    this.filteredGroupStudentsStr = '';
+    this.filterGroupStudents();
+    this.filteredClassStudentsStr = '';
+    this.filterClassStudents();
   }
 
   getUserByUserId = (userId: string, users: any[]): User => {
