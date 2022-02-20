@@ -153,8 +153,8 @@ export class AdminService {
       });
   }
 
-  assignStudentsToGroup = (groupId: string, users: User[], s: any) => {
-    this.resources.assignStudentsToGroup(groupId, users,
+  assignStudentsToGroup = (groupStudents: any[], s: any) => {
+    this.resources.assignStudentsToGroup(groupStudents,
       (response: any) => {
         s(response);
       }, (response: any) => {
@@ -162,8 +162,8 @@ export class AdminService {
       });
   }
 
-  unAssignStudentsFromGroup = (groupId: string, users: User[], s: any) => {
-    this.resources.unAssignStudentsFromGroup(groupId, users,
+  unAssignStudentsFromGroup = (groupStudents: any[], s: any) => {
+    this.resources.unAssignStudentsFromGroup(groupStudents,
       (response: any) => {
         s(response);
       }, (response: any) => {

@@ -145,9 +145,9 @@ export class ResourcesService {
       }, null, null);
   }
 
-  assignStudentsToGroup = (groupId: string, users: User[], s: any, f: any) => {
-    const slug = "/groups/" + groupId + "/assignStudents";
-    this.comm.post(slug, users,
+  assignStudentsToGroup = (groupStudents: any[], s: any, f: any) => {
+    const slug = "/group-students";
+    this.comm.post(slug, groupStudents,
       (res: any) => {
         s(res);
       }, (res: any) => {
@@ -155,13 +155,13 @@ export class ResourcesService {
       }, null);
   }
 
-  unAssignStudentsFromGroup = (groupId: string, users: User[], s: any, f: any) => {
-    const slug = "/groups/" + groupId + "/unassignStudents";
-    this.comm.post(slug, users,
+  unAssignStudentsFromGroup = (groupStudents: any[], s: any, f: any) => {
+    const slug = "/group-students";
+    this.comm.delete(slug, groupStudents,
       (res: any) => {
         s(res);
       }, (res: any) => {
         f(res);
-      }, null);
+      });
   }
 }
