@@ -57,7 +57,7 @@ export class GroupStudentsComponent implements OnInit {
   }
 
   getClassStudents = () => {
-    this.adminService.getClassStudents(this.class.id);
+    this.adminService.getClassStudents(this.class.id, this.assignment.id);
   }
 
   applyFilter = (event: any) => {

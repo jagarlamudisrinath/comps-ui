@@ -39,18 +39,20 @@ export class CUAssignmentComponent implements OnInit {
 
   save = () => {
     let file = this.isNew ? this.files[0] : '';
-    this.selectedAssignment.file = file;
     let formData = new FormData();
-    formData.append('assignment', JSON.stringify(this.selectedAssignment));
+    for (const [key, value] of Object.entries(this.selectedAssignment)) {
+      formData.append(key, value);
+    }
+    formData.append('file', file);
+
     this.adminService.createOrUpdateAssignment(this.selectedAssignment, formData,
-      (response: Assignment) => {
-        let msg = `Assignment [ ${response.title} ] created successfully.`;
+      (response: any) => {
+        let msg = `Assignment [ ${this.selectedAssignment.title} ] created successfully.`;
         if (!this.isNew) {
-          msg = `Assignment [ ${response.title} ] updated successfully.`;
+          msg = `Assignment [ ${this.selectedAssignment.title} ] updated successfully.`;
         }
         this.commonUtils.openSnackBar(msg);
-        Object.assign(this.originalAssignment, response);
-        Object.assign(this.selectedAssignment, response);
+        Object.assign(this.originalAssignment, this.selectedAssignment);
         this.slide.emit(this.drawer);
       });
   }

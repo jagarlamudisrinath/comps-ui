@@ -103,9 +103,9 @@ export class AdminService {
       });
   }
 
-  createOrUpdateAssignment = (cl: Assignment, file: any, s: any) => {
-    this.resources.createOrUpdateAssignment(cl, file,
-      (response: Assignment) => {
+  createOrUpdateAssignment = (cl: Assignment, formData: any, s: any) => {
+    this.resources.createOrUpdateAssignment(cl, formData,
+      (response: any) => {
         this.getClassAssignments(cl.classId);
         s(response);
       }, (response: any) => {
@@ -143,8 +143,8 @@ export class AdminService {
       });
   }
 
-  getClassStudents = (classId: string) => {
-    this.resources.getClassStudents(classId,
+  getClassStudents = (classId: string, assignmentId: string) => {
+    this.resources.getClassStudents(classId, assignmentId,
       (response: User[]) => {
         this.classStudents.next(response);
       }, (response: any) => {

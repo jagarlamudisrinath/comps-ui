@@ -125,7 +125,7 @@ export class ResourcesService {
   }
 
   getGroupStudents = (groupId: string, s: any, f: any) => {
-    const slug: string = "/users?groupId=" + groupId;
+    const slug: string = "/group-students?groupId=" + groupId;
     this.comm.get(slug,
       (res: any) => {
         s(res);
@@ -134,8 +134,9 @@ export class ResourcesService {
       }, null, null);
   }
 
-  getClassStudents = (classId: string, s: any, f: any) => {
-    const slug: string = "/users?classId=" + classId;
+  /* Get class students who are not in any group in the class */
+  getClassStudents = (classId: string, assignmentId: string, s: any, f: any) => {
+    const slug: string = "/group-students?classId=" + classId + "&assignmentId=" + assignmentId;
     this.comm.get(slug,
       (res: any) => {
         s(res);
