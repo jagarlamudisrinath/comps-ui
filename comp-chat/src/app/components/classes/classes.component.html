@@ -8,11 +8,9 @@
                         (slide)="slide($event)">
                     </app-c-u-class>
                 </ng-template>
-                <ng-template [ngSwitchCase]="'UPLOAD_CLASS_STUDENTS'">
-                    <app-file-upload [title]='"Upload Students File"' [type]="'UPLOAD_CLASS_STUDENTS'"
-                        [componentId]='selectedClass.id' [componentName]='selectedClass.title' [drawer]='classes_drawer'
-                        [multiple]='false' [acceptedFileTypes]='".csv"' [filesCount]='1' (slide)="slide($event)">
-                    </app-file-upload>
+                <ng-template [ngSwitchCase]="'CLASS_STUDENTS'">
+                    <app-class-students [class]="selectedClass" [drawer]='classes_drawer' (slideParent)="slide($event)">
+                    </app-class-students>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'CLASS_ASSIGNMENTS'">
                     <app-assignments [class]="selectedClass" [drawer]="classes_drawer" (slideParent)="slide($event)">
@@ -44,43 +42,56 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <mat-grid-list cols="4" rowHeight="120px">
-                        <mat-grid-tile *ngFor="let item of classes">
-                            <mat-card>
-                                <mat-card-header>
-                                    <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
-                                        {{item.title}}
-                                    </mat-card-title>
-                                </mat-card-header>
-                                <mat-card-actions class="actions">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1">
-                                            <mat-icon matTooltip="Description: {{item.description}}">info</mat-icon>
+                    <div *ngIf="classes.length === 0 then cl1 else cl2"></div>
+                    <ng-template #cl1>
+                        <div class="no-items-instruction">
+                            <div *ngIf="filterString === ''">
+                                Classes are not added.
+                                <button class="anchor-button" (click)="add(classes_drawer)">
+                                    Click here </button> to add class.
+                            </div>
+                            <div *ngIf="filterString !== ''">Classes are not exists with the filter string.</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #cl2>
+                        <mat-grid-list cols="4" rowHeight="120px">
+                            <mat-grid-tile *ngFor="let item of classes">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
+                                            {{item.title}}
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-actions class="actions">
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1">
+                                                <mat-icon matTooltip="Description: {{item.description}}">info</mat-icon>
+                                            </div>
+                                            <div>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Edit" (click)="edit(classes_drawer, item)">
+                                                        edit
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Goto class students"
+                                                        (click)="gotoClassStudents(classes_drawer, item)">
+                                                        people
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Goto class assignments"
+                                                        (click)="gotoClassAssignments(classes_drawer, item)">
+                                                        view_list
+                                                    </mat-icon>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Edit" (click)="edit(classes_drawer, item)">
-                                                    edit
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Assignments"
-                                                    (click)="gotoClassAssignments(classes_drawer, item)">
-                                                    view_list
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Upload students file"
-                                                    (click)="uploadStudents(classes_drawer, item)">
-                                                    upload_file
-                                                </mat-icon>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </mat-grid-tile>
-                    </mat-grid-list>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </ng-template>
                 </div>
             </div>
         </div>

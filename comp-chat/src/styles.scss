@@ -194,7 +194,6 @@ button:focus {
 }
 
 .side-bar-content .content {
-    margin-top: 10px;
     padding: 10px 20px 0 20px;
     
     .row{
@@ -624,6 +623,28 @@ mat-card {
                 mat-icon {
                     margin-left: 2px;
                 }
+            }
+        }
+    }
+}
+
+.no-items-instruction {
+    display: flex;
+    justify-content: center;
+    color: #aaa;
+    height: 300px;
+    width: 100%;
+    font-size: 18px;
+
+    div {
+        margin: auto;
+
+        button {
+            color: #010175a3;
+            background: white;
+            border: none;
+            &:hover {
+                text-decoration: underline;
             }
         }
     }

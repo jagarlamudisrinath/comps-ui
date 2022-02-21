@@ -44,35 +44,48 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <mat-grid-list cols="4" rowHeight="120px">
-                        <mat-grid-tile *ngFor="let item of groups">
-                            <mat-card>
-                                <mat-card-header>
-                                    <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
-                                        {{item.title}}
-                                    </mat-card-title>
-                                </mat-card-header>
-                                <mat-card-actions class="actions">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1"> </div>
-                                        <div>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Edit" (click)="edit(groups_drawer, item)">
-                                                    edit
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Add students to group"
-                                                    (click)="gotoGroupStudents(groups_drawer, item)">
-                                                    group_add
-                                                </mat-icon>
-                                            </button>
+                    <div *ngIf="groups.length === 0 then gr1 else gr2"></div>
+                    <ng-template #gr1>
+                        <div class="no-items-instruction">
+                            <div *ngIf="filterString === ''">
+                                Groups are not added.
+                                <button class="anchor-button" (click)="add(groups_drawer)">
+                                    Click here </button> to add group.
+                            </div>
+                            <div *ngIf="filterString !== ''">Groups are not exists with the filter string.</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #gr2>
+                        <mat-grid-list cols="4" rowHeight="120px">
+                            <mat-grid-tile *ngFor="let item of groups">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
+                                            {{item.title}}
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-actions class="actions">
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1"> </div>
+                                            <div>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Edit" (click)="edit(groups_drawer, item)">
+                                                        edit
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Add students to group"
+                                                        (click)="gotoGroupStudents(groups_drawer, item)">
+                                                        group_add
+                                                    </mat-icon>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </mat-grid-tile>
-                    </mat-grid-list>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </ng-template>
                 </div>
             </div>
         </div>

@@ -84,6 +84,16 @@ export class AdminService {
       });
   }
 
+  getClassStudents = (classId: string) => {
+    this.resources.getClassStudents(classId,
+      (response: User[]) => {
+        this.classStudents.next(response);
+      }, (response: any) => {
+        this.classStudents.next([]);
+        this.commonUtils.openSnackBar(response);
+      });
+  }
+
   uploadStudentsToClass = (classId: string, formData: any, s: any) => {
     this.resources.uploadStudentsToClass(classId, formData,
       (response: any) => {
@@ -143,8 +153,8 @@ export class AdminService {
       });
   }
 
-  getClassStudents = (classId: string, assignmentId: string) => {
-    this.resources.getClassStudents(classId, assignmentId,
+  getClassStudentsNotInAnyGroup = (classId: string, assignmentId: string) => {
+    this.resources.getClassStudentsNotInAnyGroup(classId, assignmentId,
       (response: User[]) => {
         this.classStudents.next(response);
       }, (response: any) => {

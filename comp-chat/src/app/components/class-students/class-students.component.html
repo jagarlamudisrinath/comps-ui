@@ -1,11 +1,11 @@
 <mat-drawer-container class="drawerContainer" autosize>
-    <mat-drawer #users_drawer class="inner" mode="side" disableClose position='end'>
+    <mat-drawer #class_students_drawer class="inner" mode="side" disableClose position='end'>
         <div *ngIf="!showTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
-                <ng-template [ngSwitchCase]="'IMPORT_USER'">
-                    <app-file-upload [title]='"Upload Users File"' [type]="'UPLOAD_USERS'" [componentId]='""'
-                        [componentName]='""' [drawer]='users_drawer' [multiple]='false' [acceptedFileTypes]='".csv"'
-                        [filesCount]='1' (slide)="slide($event)">
+                <ng-template [ngSwitchCase]="'UPLOAD_CLASS_STUDENTS'">
+                    <app-file-upload [title]='"Upload Students File"' [type]="'UPLOAD_CLASS_STUDENTS'"
+                        [componentId]='class.id' [componentName]='class.title' [drawer]='class_students_drawer'
+                        [multiple]='false' [acceptedFileTypes]='".csv"' [filesCount]='1' (slide)="slide($event)">
                     </app-file-upload>
                 </ng-template>
             </div>
@@ -15,7 +15,13 @@
         <div *ngIf="showTemplate" class="h-100">
             <div class="header">
                 <mat-toolbar class="p-0">
-                    <span class="name">USERS</span>
+                    <span matTooltip="Back to classes" class="material-icons me-3">
+                        <button class="custom-medium-fab closeIconColor mb-2" mat-mini-fab [color]="'primary'"
+                            (click)="slideParent.emit(drawer)">
+                            <mat-icon>keyboard_backspace</mat-icon>
+                        </button>
+                    </span>
+                    <span class="name">Students Of Class [ {{class.title}} ]</span>
                     <!-- <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
@@ -23,9 +29,9 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
-                    <span matTooltip="Import users" class="material-icons pull-right">
+                    <span matTooltip="Import students" class="material-icons pull-right">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
-                            (click)="add(users_drawer)">
+                            (click)="uploadStudents(class_students_drawer)">
                             <mat-icon>add</mat-icon>
                         </button>
                     </span>
@@ -34,20 +40,20 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <div *ngIf="users.length === 0 then us1 else us2"></div>
-                    <ng-template #us1>
+                    <div *ngIf="classStudents.length === 0 then st1 else st2"></div>
+                    <ng-template #st1>
                         <div class="no-items-instruction">
                             <div *ngIf="filterString === ''">
-                                Users are not added.
-                                <button class="anchor-button" (click)="add(users_drawer)">
-                                    Click here </button> to upload users file.
+                                Students are not added.
+                                <button class="anchor-button" (click)="uploadStudents(class_students_drawer)">
+                                    Click here </button> to upload students file.
                             </div>
-                            <div *ngIf="filterString !== ''">Users are not exists with the filter string.</div>
+                            <div *ngIf="filterString !== ''">Students are not exists with the filter string.</div>
                         </div>
                     </ng-template>
-                    <ng-template #us2>
+                    <ng-template #st2>
                         <mat-grid-list cols="4" rowHeight="125px">
-                            <mat-grid-tile *ngFor="let item of users">
+                            <mat-grid-tile *ngFor="let item of classStudents">
                                 <mat-card>
                                     <mat-card-header class="no-actions">
                                         <mat-card-title class="text-overflow"

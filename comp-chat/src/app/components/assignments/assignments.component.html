@@ -43,41 +43,55 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <mat-grid-list cols="4" rowHeight="120px">
-                        <mat-grid-tile *ngFor="let item of assignments">
-                            <mat-card>
-                                <mat-card-header>
-                                    <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
-                                        {{item.title}}
-                                    </mat-card-title>
-                                </mat-card-header>
-                                <mat-card-actions class="actions">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1"> </div>
-                                        <div>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Edit" (click)="edit(assignments_drawer, item)">
-                                                    edit
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Download assignment file"
-                                                    (click)="downloadAssignmentFile(assignments_drawer, item)">
-                                                    file_download
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-mini-fab>
-                                                <mat-icon matTooltip="Groups"
-                                                    (click)="gotoAssignmentGroups(assignments_drawer, item)">
-                                                    view_list
-                                                </mat-icon>
-                                            </button>
+                    <div *ngIf="assignments.length === 0 then as1 else as2"></div>
+                    <ng-template #as1>
+                        <div class="no-items-instruction">
+                            <div *ngIf="filterString === ''">
+                                Assignments are not added.
+                                <button class="anchor-button" (click)="add(assignments_drawer)">
+                                    Click here </button> to add assignment.
+                            </div>
+                            <div *ngIf="filterString !== ''">Assignments are not exists with the filter string.</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #as2>
+                        <mat-grid-list cols="4" rowHeight="120px">
+                            <mat-grid-tile *ngFor="let item of assignments">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title class="text-overflow" matTooltip="{{item.title}}">
+                                            {{item.title}}
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-actions class="actions">
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1"> </div>
+                                            <div>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Edit"
+                                                        (click)="edit(assignments_drawer, item)">
+                                                        edit
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Download assignment file"
+                                                        (click)="downloadAssignmentFile(assignments_drawer, item)">
+                                                        file_download
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Groups"
+                                                        (click)="gotoAssignmentGroups(assignments_drawer, item)">
+                                                        view_list
+                                                    </mat-icon>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </mat-card-actions>
-                            </mat-card>
-                        </mat-grid-tile>
-                    </mat-grid-list>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </ng-template>
                 </div>
             </div>
         </div>

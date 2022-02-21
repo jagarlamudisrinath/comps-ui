@@ -49,15 +49,15 @@ export class GroupStudentsComponent implements OnInit {
       });
 
     this.getGroupStudents();
-    this.getClassStudents();
+    this.getClassStudentsNotInAnyGroup();
   }
 
   getGroupStudents = () => {
     this.adminService.getGroupStudents(this.group.id);
   }
 
-  getClassStudents = () => {
-    this.adminService.getClassStudents(this.class.id, this.assignment.id);
+  getClassStudentsNotInAnyGroup = () => {
+    this.adminService.getClassStudentsNotInAnyGroup(this.class.id, this.assignment.id);
   }
 
   applyFilter = (event: any) => {

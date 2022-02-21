@@ -74,6 +74,16 @@ export class ResourcesService {
       }, null, null);
   }
 
+  getClassStudents = (classId: string, s: any, f: any) => {
+    const slug = "/class-students?classId=" + classId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
   uploadStudentsToClass = (classId: string, formData: any, s: any, f: any) => {
     const slug = "/class-students/" + classId;
     this.comm.post(slug, formData,
@@ -135,7 +145,7 @@ export class ResourcesService {
   }
 
   /* Get class students who are not in any group in the class */
-  getClassStudents = (classId: string, assignmentId: string, s: any, f: any) => {
+  getClassStudentsNotInAnyGroup = (classId: string, assignmentId: string, s: any, f: any) => {
     const slug: string = "/group-students?classId=" + classId + "&assignmentId=" + assignmentId;
     this.comm.get(slug,
       (res: any) => {
