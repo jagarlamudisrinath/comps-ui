@@ -57,7 +57,7 @@ export class GroupStudentsComponent implements OnInit {
   }
 
   getClassStudents = () => {
-    this.adminService.getClassStudents(this.class.id);
+    this.adminService.getClassStudents(this.class.id, this.assignment.id);
   }
 
   applyFilter = (event: any) => {
@@ -97,54 +97,54 @@ export class GroupStudentsComponent implements OnInit {
           this.unAssign(event.item.element.nativeElement.id, event.currentIndex);
         }
       }
-
-      this.filteredGroupStudentsStr = '';
-      this.filterGroupStudents();
-      this.filteredClassStudentsStr = '';
-      this.filterClassStudents();
     }
   }
 
   assign = (userId: string, index: number) => {
     let user = this.getUserByUserId(userId, this.classStudents);
-    this.adminService.assignStudentsToGroup(this.group.id, [user], () => {
+    this.adminService.assignStudentsToGroup([{ groupId: this.group.id, studentId: user.id }], () => {
       this.classStudents.splice(this.classStudents.indexOf(user), 1);
       this.groupStudents.splice(index, 0, user);
+      this.runFilters();
     });
   }
 
   unAssign = (userId: string, index: number) => {
     let user = this.getUserByUserId(userId, this.groupStudents);
-    this.adminService.unAssignStudentsFromGroup(this.group.id, [user], () => {
+    this.adminService.unAssignStudentsFromGroup([{ groupId: this.group.id, studentId: user.id }], () => {
       this.groupStudents.splice(this.groupStudents.indexOf(user), 1);
       this.classStudents.splice(index, 0, user);
+      this.runFilters();
     });
   }
 
   assignSelectedStudents = () => {
     let selectedUsers = this.getSelectedUsers(this.filteredClassStudents);
-    this.adminService.assignStudentsToGroup(this.group.id, selectedUsers,
+    let groupStudents = this.constructFinalRequestObject(selectedUsers);
+    this.adminService.assignStudentsToGroup(groupStudents,
       (response: any) => {
         this.groupStudents.push(...selectedUsers);
         this.removeUsersFromList(selectedUsers, this.classStudents);
-        this.filteredGroupStudentsStr = '';
-        this.filterGroupStudents();
-        this.filteredClassStudentsStr = '';
-        this.filterClassStudents();
+        this.runFilters();
       });
   }
 
   unAssignSelectedStudents = () => {
     let selectedUsers = this.getSelectedUsers(this.filteredGroupStudents);
-    this.adminService.unAssignStudentsFromGroup(this.group.id, selectedUsers,
+    let groupStudents = this.constructFinalRequestObject(selectedUsers);
+    this.adminService.unAssignStudentsFromGroup(groupStudents,
       (response: any) => {
         this.classStudents.push(...selectedUsers);
         this.removeUsersFromList(selectedUsers, this.groupStudents);
-        this.filteredGroupStudentsStr = '';
-        this.filterGroupStudents();
-        this.filteredClassStudentsStr = '';
-        this.filterClassStudents();
+        this.runFilters();
       });
+  }
+
+  runFilters = () => {
+    this.filteredGroupStudentsStr = '';
+    this.filterGroupStudents();
+    this.filteredClassStudentsStr = '';
+    this.filterClassStudents();
   }
 
   getUserByUserId = (userId: string, users: any[]): User => {
@@ -173,5 +173,13 @@ export class GroupStudentsComponent implements OnInit {
       });
       allUsers.splice(selectedIndex, 1);
     });
+  }
+
+  constructFinalRequestObject = (students: User[]) => {
+    let groupStudents: any[] = [];
+    students.forEach(st => {
+      groupStudents.push({ groupId: this.group.id, studentId: st.id });
+    });
+    return groupStudents;
   }
 }
