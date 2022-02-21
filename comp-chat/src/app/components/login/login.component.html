@@ -19,8 +19,11 @@
                     <div class="col-12 mb-2">
                         <mat-form-field appearance="outline">
                             <mat-label>Password</mat-label>
-                            <input name="password" [(ngModel)]="user.password" matInput required>
-                            <mat-icon matSuffix>password</mat-icon>
+                            <input name="password" [(ngModel)]="user.password" matInput required
+                                [type]="hide ? 'password' : 'text'">
+                            <mat-icon matSuffix (click)="$event.stopPropagation();$event.preventDefault();hide = !hide">
+                                {{hide ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
                             <mat-error *ngIf="f.controls['password']?.errors?.required">Password is mandatory.
                             </mat-error>
                         </mat-form-field>

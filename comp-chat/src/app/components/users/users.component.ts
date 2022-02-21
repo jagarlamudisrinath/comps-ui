@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserType } from 'src/app/enums/user-type';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-users',
@@ -18,18 +21,23 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
 
   constructor(
-    private commonUtils: CommonUtilsService,
-    private adminService: AdminService
+    private rootScope: RootScopeService,
+    private adminService: AdminService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.adminService.users.pipe(
-      takeUntil(this.destroy$))
-      .subscribe(result => {
-        this.users = result;
-      });
+    if (this.rootScope.LOGGED_IN_USER.value.type !== UserType.ADMIN) {
+      this.router.navigate(['/home']);
+    } else {
+      this.adminService.users.pipe(
+        takeUntil(this.destroy$))
+        .subscribe(result => {
+          this.users = result;
+        });
 
-    this.getUsers();
+      this.getUsers();
+    }
   }
 
   getUsers = () => {

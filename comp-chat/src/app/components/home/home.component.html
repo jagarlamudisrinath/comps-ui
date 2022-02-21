@@ -8,15 +8,16 @@
                     </span>
                 </div> -->
                 <mat-nav-list>
-                    <mat-list-item routerLink="/admin/about" routerLinkActive="active" matTooltip="About">
+                    <mat-list-item routerLink="/home/about" routerLinkActive="active" matTooltip="About">
                         <mat-icon mat-list-icon>person</mat-icon>
                         <a matLine href="javascript:void(0)">ABOUT</a>
                     </mat-list-item>
-                    <mat-list-item routerLink="/admin/classes" routerLinkActive="active" matTooltip="Class Rooms">
+                    <mat-list-item routerLink="/home/classes" routerLinkActive="active" matTooltip="Classes">
                         <mat-icon mat-list-icon>business</mat-icon>
                         <a matLine href="javascript:void(0)">CLASSES</a>
                     </mat-list-item>
-                    <mat-list-item routerLink="/admin/users" routerLinkActive="active" matTooltip="Users">
+                    <mat-list-item *ngIf="rootScope.LOGGED_IN_USER.value.type === 'ADMIN'" routerLink="/home/users"
+                        routerLinkActive="active" matTooltip="Users">
                         <mat-icon mat-list-icon>group</mat-icon>
                         <a matLine href="javascript:void(0)">USERS</a>
                     </mat-list-item>

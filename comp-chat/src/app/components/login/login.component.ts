@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     type: UserType.ADMIN,
     username: '',
     password: ''
-  }
+  };
+  hide: boolean = true;
 
   constructor(
     private resources: ResourcesService,
@@ -40,22 +41,7 @@ export class LoginComponent implements OnInit {
         this.rootScope.IS_USER_LOGGED_IN.next(true);
         localStorage.setItem('IS_USER_LOGGED_IN', 'true');
         this.commonUtils.openSnackBar('Login successful.');
-        let url = '';
-        switch (response.user.type) {
-          case UserType.ADMIN:
-            url = '/admin'
-            break;
-          case UserType.STUDENT:
-            url = '/student'
-            break;
-          case UserType.PROFESSOR:
-            url = '/admin'
-            break;
-          case UserType.GA:
-            url = '/admin'
-            break;
-        }
-        this.router.navigate([url]);
+        this.router.navigate(['/home']);
       }, (response: any) => {
         this.commonUtils.openSnackBar('Login failed.');
       });

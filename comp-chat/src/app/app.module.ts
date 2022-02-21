@@ -13,15 +13,14 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AssistantProfessorDashboardComponent } from './components/assistant-professor-dashboard/assistant-professor-dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { UsersComponent } from './components/users/users.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { CUClassComponent } from './components/c-u-class/c-u-class.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { AssignmentsComponent } from './components/assignments/assignments.component';
@@ -29,7 +28,6 @@ import { CUAssignmentComponent } from './components/c-u-assignment/c-u-assignmen
 import { GroupsComponent } from './components/groups/groups.component';
 import { GroupStudentsComponent } from './components/group-students/group-students.component';
 import { CUGroupComponent } from './components/c-u-group/c-u-group.component';
-import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,23 +35,21 @@ import { LoginComponent } from './components/login/login.component';
     ElementAutoFocusDirective,
 
     AppComponent,
-    AdminDashboardComponent,
-    AssistantProfessorDashboardComponent,
     StudentDashboardComponent,
-    DashboardComponent,
+    LoginComponent,
     HeaderComponent,
+    FooterComponent,
+    HomeComponent,
     AboutComponent,
     ClassesComponent,
     UsersComponent,
-    FooterComponent,
     CUClassComponent,
     FileUploadComponent,
     AssignmentsComponent,
     CUAssignmentComponent,
     GroupsComponent,
     GroupStudentsComponent,
-    CUGroupComponent,
-    LoginComponent
+    CUGroupComponent
   ],
   imports: [
     HttpClientModule,
