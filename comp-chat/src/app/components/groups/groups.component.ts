@@ -78,6 +78,12 @@ export class GroupsComponent implements OnInit {
     this.slide(drawer);
   }
 
+  gotoChat = (drawer: any, cl: Group) => {
+    this.showSlideTemplate = "GROUP_CHAT";
+    this.selectedGroup = cl;
+    this.slide(drawer);
+  }
+
   slide = (drawer: any) => {
     if (drawer._opened) {
       this.showGroupsTemplate = true;

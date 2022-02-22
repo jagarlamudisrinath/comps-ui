@@ -483,30 +483,19 @@ mat-card {
 }
 
 .student-chat {
-    padding: 5px 0px;
-
-    .header {
-        mat-toolbar {
-            height: 45px !important;
-            border: 1px solid #c4c4c4;
-            border-radius: 4px;
-
-            mat-icon {
-                margin: 0 10px;
-            }
-        }
-    }
 
     .group-members {
-        margin: 5px 0;
-        background: #f8f8f8 none repeat scroll 0 0;
+        margin: 5px 0 !important;
+        background: #f8f8f8 none repeat scroll 0 0 !important;
         width: 20% !important; 
-        border:1px solid #c4c4c4;
-        border-radius: 4px;
+        .mat-drawer-inner-container {
+            border:1px solid #c4c4c4 !important;
+            border-radius: 4px !important;
+        }
 
         .heading {
             mat-toolbar {
-                height: 45px;
+                height: 40px;
                 display: flex;
                 justify-content: center;
                 font-size: 15px;
@@ -515,20 +504,28 @@ mat-card {
         }
 
         .members {
-            padding: 5px 15px;
+            padding: 10px 15px;
             overflow: hidden !important;
             .member {
                 display: flex;
                 justify-content: flex-start;
                 margin: 10px 0;
-                height: 30px;
-                line-height: 30px;
+                height: 35px;
+                line-height: 3;
 
                 .image {
-                    width: 12%;
+                    width: 15%;
+                    button {
+                        box-shadow: none !important;
+                        cursor: default !important;
+                    }
+                    span.mat-button-wrapper {
+                        font-size: 12px !important;
+                    }
                 }
+
                 .name {
-                    width: 87%;
+                    width: 84%;
                     padding: 0px 10px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -537,6 +534,7 @@ mat-card {
             }
         }
     }
+
     .messages-container {
         margin: 5px 5px 5px 0;
         border: 1px solid #c4c4c4;
@@ -549,17 +547,23 @@ mat-card {
                 display: inline-block;
                 width: 100%;
                 margin: 10px 0;
-
+                
                 .image {
                     display: inline-block;
-                    width: 4%;
+                    width: 5%;
+                    button {
+                        box-shadow: none !important;
+                        cursor: default !important;
+                    }
+                    span.mat-button-wrapper {
+                        font-size: 12px !important;
+                    }
                 }
 
                 .in-msg {
                     display: inline-block;
-                    padding: 0 0 0 10px;
                     vertical-align: bottom;
-                    width: 95%;
+                    width: 94%;
                 }
 
                 .out-msg {
@@ -581,7 +585,7 @@ mat-card {
                     padding: 5px 10px 5px 12px;
 
                     &.out {
-                        background: #05728f none repeat scroll 0 0;
+                        background: #3f51b5 none repeat scroll 0 0;
                         color:#fff;
                         text-align: end;
                     }
@@ -591,7 +595,7 @@ mat-card {
                     color: #747474;
                     display: block;
                     font-size: 12px;
-                    margin: 8px 0 0;
+                    margin: 8px 0 2px 0;
                     &.out {
                         text-align: end;
                     }
@@ -606,7 +610,7 @@ mat-card {
             input {
                 background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
                 border: medium none;
-                color: #4c4c4c;
+                color: $default-font-color;
                 font-size: 15px;
                 min-height: 48px;
                 width: 95%;
@@ -617,9 +621,6 @@ mat-card {
                 display: inline-block;
                 text-align: right;
                 
-                .mat-mini-fab.mat-primary {
-                    background: #05728f !important;
-                }
                 mat-icon {
                     margin-left: 2px;
                 }

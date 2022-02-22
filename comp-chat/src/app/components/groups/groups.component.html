@@ -12,6 +12,11 @@
                         [drawer]="groups_drawer" (slideParent)="slide($event)">
                     </app-group-students>
                 </ng-template>
+                <ng-template [ngSwitchCase]="'GROUP_CHAT'">
+                    <app-chat [class]="class" [assignment]="assignment" [group]="selectedGroup" [drawer]="groups_drawer"
+                        (slideParent)="slide($event)">
+                    </app-chat>
+                </ng-template>
             </div>
         </div>
     </mat-drawer>
@@ -77,6 +82,12 @@
                                                     <mat-icon matTooltip="Add students to group"
                                                         (click)="gotoGroupStudents(groups_drawer, item)">
                                                         group_add
+                                                    </mat-icon>
+                                                </button>
+                                                <button mat-mini-fab>
+                                                    <mat-icon matTooltip="Group Chat"
+                                                        (click)="gotoChat(groups_drawer, item)">
+                                                        question_answer
                                                     </mat-icon>
                                                 </button>
                                             </div>
