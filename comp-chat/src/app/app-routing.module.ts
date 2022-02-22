@@ -5,7 +5,6 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { UsersComponent } from './components/users/users.component';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,7 +24,6 @@ const routes: Routes = [
     ]
   },
 
-  { path: 'student', component: StudentDashboardComponent },
 
   { path: '**', redirectTo: 'login' }
 ];
