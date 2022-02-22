@@ -7,6 +7,9 @@ import { Subject } from 'rxjs';
 import { AdminService } from 'src/app/service/admin.service';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
+import { ChatService } from 'src/app/services/chat.service';
+import { ChatMessage } from 'src/app/model/chat-message';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,10 +25,18 @@ export class ChatComponent implements OnInit {
   @Output() slideParent: any = new EventEmitter();
 
   groupStudents: User[] = [];
+  chatMessage: ChatMessage = new ChatMessage();
 
-  constructor(private rootScope: RootScopeService, private adminService: AdminService) { }
+  constructor(
+    private rootScope: RootScopeService,
+    private adminService: AdminService,
+    private chatService: ChatService
+  ) { }
 
   ngOnInit(): void {
+    this.chatMessage.chatId = this.group.id;
+    this.chatMessage.sender = this.rootScope.LOGGED_IN_USER.value.id;
+
     this.adminService.groupStudents.pipe(
       takeUntil(this.destroy$))
       .subscribe(result => {
@@ -42,5 +53,12 @@ export class ChatComponent implements OnInit {
   downloadAssignmentFile = () => {
     let url = this.rootScope.APP_ROOT_URL + 'assignments/' + this.assignment.id + '/fileDownload';
     window.location.href = url;
+  }
+
+  sendMessage() {
+    if (!CommonUtilsService.isEmpty(this.chatMessage.content)) {
+      this.chatService.sendMessage(this.chatMessage);
+      this.chatMessage.content = '';
+    }
   }
 }
