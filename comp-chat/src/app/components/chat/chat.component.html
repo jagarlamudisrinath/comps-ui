@@ -18,13 +18,11 @@
                         <div class="image">
                             <span class="material-icons">
                                 <button class="custom-medium-fab" mat-mini-fab [color]="'primary'">
-                                    {{st.firstName.charAt(0) | uppercase}}{{st.lastName.charAt(0) | uppercase}}
+                                    {{st.shortName}}
                                 </button>
                             </span>
                         </div>
-                        <div class="name">
-                            {{st.firstName}} {{st.lastName}}
-                        </div>
+                        <div class="name"> {{st.userName}} </div>
                     </div>
                 </ng-template>
             </div>
@@ -55,172 +53,56 @@
                 <mat-divider></mat-divider>
             </div>
             <div class="messages-container">
-                <div slim-scroll [offset]="67" [autoScrollToBottom]="true" [start]="'bottom'">
+                <div slim-scroll [offset]="67" [autoScrollToBottom]="true" [start]="'bottom'"
+                    (scroll)="onScroll($event)">
                     <div class="messages">
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        SJ
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title">Srinath Jagarlamudi | 11:01 AM | June 9</span>
-                                    <span class="title">Hello</span>
+                        <div class="message" *ngFor="let data of chatMessages ">
+                            <div *ngIf="data.type === 'CHAT' then ch1 else ch2"></div>
+                            <ng-template #ch1>
+                                <div *ngIf="data.sender !== loggedInUser.id then msg1 else msg2"></div>
+                                <ng-template #msg1>
+                                    <div class="image">
+                                        <span class="material-icons">
+                                            <button mat-mini-fab [color]="'primary'">
+                                                {{data.shortName}}
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div class="in-msg">
+                                        <div class="details">
+                                            <span class="sub-title">
+                                                {{data.userName}} |
+                                                {{data.createdOn | date: 'dd MMM'}} |
+                                                {{data.createdOn | date: 'h:mm:ss a'}}
+                                            </span>
+                                            <span class="title">{{data.content}}</span>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template #msg2>
+                                    <div class="out-msg">
+                                        <span class="sub-title out">
+                                            {{data.userName}} |
+                                            {{data.createdOn | date: 'dd MMM'}} |
+                                            {{data.createdOn | date: 'h:mm:ss a'}}
+                                        </span>
+                                        <span class="title out">{{data.content}}</span>
+                                    </div>
+                                </ng-template>
+                            </ng-template>
+                            <ng-template #ch2>
+                                <div class="info-msg">
+                                    <div class="line">
+                                        <mat-divider></mat-divider>
+                                    </div>
+                                    <div class="name mat-typography">
+                                        {{data.type === 'JOIN' ? ''+data.userName+' joined':''+data.userName+' left' }}
+                                    </div>
+                                    <div class="line">
+                                        <mat-divider></mat-divider>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="out-msg">
-                                <span class="sub-title out">Mahesh I | 11:02 AM | June 9</span>
-                                <span class="title out">Hi</span>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        SJ
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Srinath Jagarlamudi | 11:03 AM | June 9</span>
-                                    <span class="title">Good morning</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        DM
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Dawood Mohammad | 11:04 AM | June 9</span>
-                                    <span class="title">Hello</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="out-msg">
-                                <span class="sub-title out">Mahesh I | 11:05 AM | June 9</span>
-                                <span class="title out">Hi Dawood</span>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        DM
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Dawood Mohammad | 11:06 AM | June 9</span>
-                                    <span class="title">Any help needed from backend?</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="out-msg">
-                                <span class="sub-title out">Mahesh I | 11:07 AM | June 9</span>
-                                <span class="title out">assignment create call is not working</span>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        DM
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Dawood Mohammad | 11:08 AM | June 9</span>
-                                    <span class="title">Ok I will check update you</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="out-msg">
-                                <span class="sub-title out">Mahesh I | 11:08 AM | June 9</span>
-                                <span class="title out">ok dawood</span>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        DM
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Dawood Mohammad | 11:15 AM | June 9</span>
-                                    <span class="title">Mahesh committed backend changes</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        DM
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Dawood Mohammad | 11:15 AM | June 9</span>
-                                    <span class="title">Srinath Can you please deploy the latest changes</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        SJ
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Srinath Jagarlamudi | 11:16 AM | June 9</span>
-                                    <span class="title">Ok</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="image">
-                                <span class="material-icons">
-                                    <button mat-mini-fab [color]="'primary'">
-                                        SJ
-                                    </button>
-                                </span>
-                            </div>
-                            <div class="in-msg">
-                                <div class="details">
-                                    <span class="sub-title"> Srinath Jagarlamudi | 11:20 AM | June 9</span>
-                                    <span class="title">Latest changes deployed, Mahesh please check</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="out-msg">
-                                <span class="sub-title out">Mahesh I | 11:08 AM | June 9</span>
-                                <span class="title out">ok srinath</span>
-                            </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>

@@ -4,8 +4,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Assignment } from 'src/app/models/assignment';
 import { Class } from 'src/app/models/class';
 import { Group } from 'src/app/models/group';
+import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-groups',
@@ -26,13 +28,17 @@ export class GroupsComponent implements OnInit {
   originalGroup: Group = new Group();
   selectedGroup: Group = new Group();
   isNew: boolean = false;
+  loggedInUser: User = new User();
 
   constructor(
     private commonUtils: CommonUtilsService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private rootScope: RootScopeService
   ) { }
 
   ngOnInit(): void {
+    this.loggedInUser = this.rootScope.LOGGED_IN_USER.value;
+
     this.adminService.assignmentGroups.pipe(
       takeUntil(this.destroy$))
       .subscribe(result => {

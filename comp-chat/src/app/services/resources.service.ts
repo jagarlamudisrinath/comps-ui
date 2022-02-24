@@ -174,4 +174,14 @@ export class ResourcesService {
         f(res);
       });
   }
+
+  getChatHistory = (groupId: string, sizePerPage: number, pageNo: number, s: any, f: any) => {
+    const slug: string = "/messages/" + groupId + "?page=" + pageNo + "&size=" + sizePerPage;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
 }
