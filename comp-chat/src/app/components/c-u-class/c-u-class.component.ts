@@ -3,6 +3,7 @@ import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-c-u-class',
@@ -23,10 +24,16 @@ export class CUClassComponent implements OnInit {
   filteredProfessors: User[] = [];
   gaSearchString: string = "";
   filteredGAs: User[] = [];
+  loggedInUser: User = new User();
 
-  constructor(private adminService: AdminService, private commonUtils: CommonUtilsService) { }
+  constructor(
+    private adminService: AdminService,
+    private commonUtils: CommonUtilsService,
+    private rootScope: RootScopeService
+  ) { }
 
   ngOnInit(): void {
+    this.loggedInUser = this.rootScope.LOGGED_IN_USER.value;
     this.filteredProfessors = this.getFilteredItems('', this.professors);
     this.filteredGAs = this.getFilteredItems('', this.graduateAssistants);
   }

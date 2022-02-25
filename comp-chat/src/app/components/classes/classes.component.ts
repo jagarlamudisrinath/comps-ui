@@ -24,7 +24,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
   professors: User[] = [];
 
   constructor(
-    private commonUtils: CommonUtilsService,
     private adminService: AdminService
   ) { }
 

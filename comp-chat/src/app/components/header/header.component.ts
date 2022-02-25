@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
-import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { ResourcesService } from 'src/app/services/resources.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   isOpen: boolean = false;
   loggedInUser: User = new User();
-  constructor(public rootScope: RootScopeService) { }
+  constructor(public rootScope: RootScopeService, private resources: ResourcesService) { }
 
   ngOnInit(): void {
     let isUserLoggedIn = localStorage.getItem('IS_USER_LOGGED_IN') === null ? false : Boolean(localStorage.getItem('IS_USER_LOGGED_IN'));
@@ -37,10 +37,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout = () => {
+    localStorage.clear();
+    this.resources.logout();
     if (window.location.href.indexOf('login') === -1) {
       window.location.href = '/login';
     }
-    localStorage.clear();
   }
 
 }

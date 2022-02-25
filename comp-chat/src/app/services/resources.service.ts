@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { CommunicationsService } from './communications.service';
 import { Class } from '../models/class';
 import { Assignment } from '../models/assignment';
-import { User } from '../models/user';
 import { Group } from '../models/group';
 import { UserType } from '../enums/user-type';
+import { RootScopeService } from './root-scope.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourcesService {
 
-  constructor(private comm: CommunicationsService) { }
+  constructor(private comm: CommunicationsService, private rootScope: RootScopeService) { }
 
   login = (credentials: any, s: any, f: any) => {
     const headers = { headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } }
@@ -22,6 +22,16 @@ export class ResourcesService {
       }, (res: any) => {
         f(res);
       }, headers);
+  }
+
+  logout = () => {
+    const slug = '/logout';
+    this.comm.post(slug, {},
+      (res: any) => {
+        // No need to do any thing
+      }, (res: any) => {
+        // No need to do any thing
+      }, null);
   }
 
   getUsers = (s: any, f: any) => {
@@ -45,7 +55,13 @@ export class ResourcesService {
   }
 
   getClasses = (s: any, f: any) => {
-    const slug: string = "/classes";
+    let slug = "/classes";
+    let user = this.rootScope.LOGGED_IN_USER.value;
+    if (user.type === UserType.STUDENT) {
+      slug = "/classes?studentId=" + user.id;
+    } else if (user.type === UserType.PROFESSOR) {
+      slug = "/classes?professorId=" + user.id;
+    }
     this.comm.get(slug,
       (res: any) => {
         s(res);
