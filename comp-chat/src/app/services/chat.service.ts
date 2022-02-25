@@ -14,35 +14,45 @@ declare var Stomp: any;
 })
 export class ChatService {
   stompClient: any;
+  subscription: any;
   groupStudents: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   messages: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]);
-  groupId: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor(private rootScope: RootScopeService, private resources: ResourcesService, private commonUtils: CommonUtilsService) {
-    this.initializeWebSocketConnection();
+
   }
 
-  initializeWebSocketConnection() {
+  connect = (groupId: string) => {
+    const that = this;
     const serverUrl = this.rootScope.APP_ROOT_URL + "/ws/";
     const ws = new SockJS(serverUrl);
     this.stompClient = Stomp.over(ws);
-    const that = this;
-
-    this.stompClient.connect({ groupId: "e2832c22-6bd4-47a3-8ca4-49945a0173eb-group1" }, function (frame: any) {
-      that.stompClient.subscribe('/topic/' + that.groupId.value, (message: any) => {
-        if (message.body) {
-          let user = that.prepareName(that.rootScope.LOGGED_IN_USER.value);
-          let msg = JSON.parse(message.body);
-          msg.userName = user.userName;
-          msg.shortName = user.shortName;
-          that.messages.value.push(msg);
-        }
-      });
+    this.stompClient.connect({ groupId: groupId }, function (frame: any) {
+      that.subscribe(groupId);
     });
-
   }
 
-  disconnect = () => {
-    this.stompClient.disconnect({ groupId: "e2832c22-6bd4-47a3-8ca4-49945a0173eb-group1" });
+  subscribe = (groupId: string) => {
+    this.subscription = this.stompClient.subscribe('/topic/' + groupId, (message: any) => {
+      if (message.body) {
+        let user = this.prepareName(this.rootScope.LOGGED_IN_USER.value);
+        let msg = JSON.parse(message.body);
+        msg.userName = user.userName;
+        msg.shortName = user.shortName;
+        this.messages.value.push(msg);
+      }
+    });
+  }
+
+  disconnect = (groupId: string) => {
+    const that = this;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = undefined;
+    }
+    this.stompClient.disconnect(function () {
+      that.stompClient = undefined;
+    });
   }
 
 
@@ -61,13 +71,18 @@ export class ChatService {
       });
   }
 
-  getChatHistory = (groupId: string, sizePerPage: number, pageNo: number) => {
+  getChatHistory = (groupId: string, sizePerPage: number, pageNo: number, s: any) => {
     this.resources.getChatHistory(groupId, sizePerPage, pageNo,
       (response: any) => {
-        pageNo++;
-        this.prepareChatMessages(response);
-        let messages = [...response, ...this.messages.value];
+        let messages: any[] = [];
+        if (!CommonUtilsService.isEmpty(response)) {
+          this.prepareChatMessages(response);
+          messages = [...response, ...this.messages.value];
+        } else {
+          messages = this.messages.value;
+        }
         this.messages.next(messages);
+        s(response.length);
       }, (response: any) => {
         this.commonUtils.openSnackBar(response);
       });

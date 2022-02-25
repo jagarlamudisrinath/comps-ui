@@ -38,7 +38,6 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInUser = this.rootScope.LOGGED_IN_USER.value;
-
     this.adminService.assignmentGroups.pipe(
       takeUntil(this.destroy$))
       .subscribe(result => {

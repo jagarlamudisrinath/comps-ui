@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user';
 import { ChatService } from 'src/app/services/chat.service';
 import { ChatMessage } from 'src/app/model/chat-message';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
-
+declare var $: any;
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -25,9 +25,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Output() slideParent: any = new EventEmitter();
 
   chatMessages: any[] = [];
+  lastCount: number = 0;
+  isDuplicateCall: boolean = false;
   groupStudents: any[] = [];
   chatMessage: ChatMessage = new ChatMessage();
-  sizePerPage: number = 15;
+  sizePerPage: number = 20;
   pageNo: number = 0;
 
   constructor(
@@ -38,7 +40,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chatMessage.chatId = this.group.id;
     this.chatMessage.sender = this.loggedInUser.id;
-    this.chatService.groupId.next(this.group.id);
 
     this.chatService.groupStudents.pipe(
       takeUntil(this.destroy$))
@@ -56,10 +57,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
 
     this.getGroupStudents();
+    this.chatService.connect(this.group.id);
   }
 
   getChatHistory = () => {
-    this.chatService.getChatHistory(this.group.id, this.sizePerPage, this.pageNo);
+    this.chatService.getChatHistory(this.group.id, this.sizePerPage, this.pageNo,
+      (count: number) => {
+        this.isDuplicateCall = false;
+        this.lastCount = count;
+        if (count === 20) {
+          this.pageNo++;
+        }
+      });
   }
 
   getGroupStudents = () => {
@@ -79,12 +88,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onScroll = (event: any) => {
-    let i = 0;
+    if ($(event.target).scrollTop() === 0 && this.chatMessages.length > 10 &&
+      this.lastCount === 20 && !this.isDuplicateCall) {
+      this.isDuplicateCall = true;
+      this.getChatHistory();
+    }
   }
 
   ngOnDestroy(): void {
     this.pageNo = 0;
-    this.chatService.disconnect();
+    this.chatService.disconnect(this.group.id);
     this.chatService.groupStudents.next([]);
     this.chatService.messages.next([]);
     this.destroy$.next(true);
