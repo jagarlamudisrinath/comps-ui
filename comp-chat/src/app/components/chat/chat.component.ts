@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   isDuplicateCall: boolean = false;
   groupStudents: any[] = [];
   chatMessage: ChatMessage = new ChatMessage();
-  sizePerPage: number = 20;
+  sizePerPage: number = 12;
   pageNo: number = 0;
 
   constructor(
@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       (count: number) => {
         this.isDuplicateCall = false;
         this.lastCount = count;
-        if (count === 20) {
+        if (count === this.sizePerPage) {
           this.pageNo++;
         }
       });
@@ -90,7 +90,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   onScroll = (event: any) => {
     if ($(event.target).scrollTop() <= 0 && this.chatMessages.length > 10 &&
-      this.lastCount === 20 && !this.isDuplicateCall) {
+      this.lastCount === this.sizePerPage && !this.isDuplicateCall) {
       this.isDuplicateCall = true;
       this.getChatHistory();
     }
