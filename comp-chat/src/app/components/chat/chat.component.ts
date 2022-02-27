@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   isDuplicateCall: boolean = false;
   groupStudents: any[] = [];
   chatMessage: ChatMessage = new ChatMessage();
-  sizePerPage: number = 12;
+  sizePerPage: number = 50;
   pageNo: number = 0;
 
   constructor(
