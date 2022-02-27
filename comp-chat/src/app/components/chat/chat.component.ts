@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Input() loggedInUser: User = new User();
   @Input() class: Class = new Class();
   @Input() assignment: Assignment = new Assignment();
+  @Input() professor: User = new User();
   @Input() group: Group = new Group();
   @Input() drawer: any;
   @Output() slideParent: any = new EventEmitter();
@@ -72,7 +73,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   getGroupStudents = () => {
-    this.chatService.getGroupStudents(this.group.id);
+    this.chatService.getGroupStudents(this.group.id, this.professor);
   }
 
   downloadAssignmentFile = () => {
@@ -88,7 +89,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onScroll = (event: any) => {
-    if ($(event.target).scrollTop() === 0 && this.chatMessages.length > 10 &&
+    if ($(event.target).scrollTop() <= 0 && this.chatMessages.length > 10 &&
       this.lastCount === 20 && !this.isDuplicateCall) {
       this.isDuplicateCall = true;
       this.getChatHistory();

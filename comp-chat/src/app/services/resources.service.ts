@@ -54,6 +54,16 @@ export class ResourcesService {
       }, null);
   }
 
+  getUserById = (userId: string, s: any, f: any) => {
+    const slug: string = "/users?userId=" + userId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
   getClasses = (s: any, f: any) => {
     let slug = "/classes";
     let user = this.rootScope.LOGGED_IN_USER.value;

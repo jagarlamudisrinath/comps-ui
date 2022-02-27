@@ -14,7 +14,7 @@
                 </ng-template>
                 <ng-template [ngSwitchCase]="'GROUP_CHAT'">
                     <app-chat [loggedInUser]="user" [class]="class" [assignment]="assignment" [group]="selectedGroup"
-                        [drawer]="groups_drawer" (slideParent)="slide($event)">
+                        [professor]="professor" [drawer]="groups_drawer" (slideParent)="slide($event)">
                     </app-chat>
                 </ng-template>
             </div>

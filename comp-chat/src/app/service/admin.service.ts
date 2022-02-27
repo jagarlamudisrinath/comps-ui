@@ -44,6 +44,15 @@ export class AdminService {
       });
   }
 
+  getUserById = (userId: string, s: any) => {
+    this.resources.getUserById(userId,
+      (response: User) => {
+        s(response);
+      }, (response: any) => {
+        this.commonUtils.openSnackBar(response);
+      });
+  }
+
   getClasses = () => {
     this.resources.getClasses(
       (response: Class[]) => {

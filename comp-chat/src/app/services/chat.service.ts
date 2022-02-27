@@ -60,10 +60,10 @@ export class ChatService {
     this.stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
   }
 
-  getGroupStudents = (groupId: string) => {
+  getGroupStudents = (groupId: string, professor: User) => {
     this.resources.getGroupStudents(groupId,
       (response: any[]) => {
-        let users: any[] = this.prepareUsers(response);
+        let users: any[] = this.prepareUsers(response, professor);
         this.groupStudents.next(users);
       }, (response: any) => {
         this.groupStudents.next([]);
@@ -76,8 +76,9 @@ export class ChatService {
       (response: any) => {
         let messages: any[] = [];
         if (!CommonUtilsService.isEmpty(response)) {
-          this.prepareChatMessages(response);
-          messages = [...response, ...this.messages.value];
+          let orderedMessages = response.reverse();
+          this.prepareChatMessages(orderedMessages);
+          messages = [...orderedMessages, ...this.messages.value];
         } else {
           messages = this.messages.value;
         }
@@ -98,7 +99,7 @@ export class ChatService {
     }
   }
 
-  prepareUsers = (users: any) => {
+  prepareUsers = (users: any, professor: User) => {
     let groupUsers: any[] = [];
     users.forEach((user: any) => {
       groupUsers.push(this.prepareName(user));
@@ -107,6 +108,8 @@ export class ChatService {
     let loggedInUser: any = this.rootScope.LOGGED_IN_USER.value;
     if (loggedInUser.type !== UserType.STUDENT) {
       groupUsers.push(this.prepareName(loggedInUser))
+    } else {
+      groupUsers.push(this.prepareName(professor))
     }
     return groupUsers;
   }

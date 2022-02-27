@@ -30,6 +30,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
   isNew: boolean = false;
 
   studentGroup: Group = new Group();
+  professor: User = new User();
 
   constructor(
     private adminService: AdminService,
@@ -44,11 +45,19 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
         this.assignments = result;
       });
 
+    this.getProfessorById();
     this.getAssignments();
   }
 
   getAssignments = () => {
     this.adminService.getClassAssignments(this.class.id);
+  }
+
+  getProfessorById = () => {
+    this.adminService.getUserById(this.class.profId,
+      (user: User) => {
+        this.professor = user;
+      });
   }
 
   applyFilter(event: any) {

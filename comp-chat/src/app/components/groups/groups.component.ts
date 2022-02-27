@@ -18,6 +18,7 @@ export class GroupsComponent implements OnInit {
   @Input() user: User = new User();
   @Input() class: Class = new Class();
   @Input() assignment: Assignment = new Assignment();
+  @Input() professor: User = new User();
   @Input() drawer: any;
   @Output() slideParent: any = new EventEmitter();
 
