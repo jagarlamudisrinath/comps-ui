@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.rootScope.LOGGED_IN_USER.value.type !== UserType.ADMIN) {
+    if (this.rootScope.LOGGED_IN_USER.value.type === UserType.STUDENT) {
       this.router.navigate(['/home']);
     } else {
       this.adminService.users.pipe(

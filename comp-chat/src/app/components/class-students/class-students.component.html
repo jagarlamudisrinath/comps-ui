@@ -29,7 +29,8 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
-                    <span matTooltip="Import students" class="material-icons pull-right">
+                    <span matTooltip="Import students" class="material-icons pull-right"
+                        *ngIf="user.type !== 'STUDENT'">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
                             (click)="uploadStudents(class_students_drawer)">
                             <mat-icon>add</mat-icon>

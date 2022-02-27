@@ -60,7 +60,7 @@ export class ResourcesService {
     if (user.type === UserType.STUDENT) {
       slug = "/classes?studentId=" + user.id;
     } else if (user.type === UserType.PROFESSOR) {
-      slug = "/classes?professorId=" + user.id;
+      slug = "/classes?profId=" + user.id;
     }
     this.comm.get(slug,
       (res: any) => {
@@ -132,6 +132,16 @@ export class ResourcesService {
 
   getAssignmentGroups = (assignmentId: string, s: any, f: any) => {
     const slug: string = "/groups?assignmentId=" + assignmentId;
+    this.comm.get(slug,
+      (res: any) => {
+        s(res);
+      }, (res: any) => {
+        f(res);
+      }, null, null);
+  }
+
+  returnGroupsByStudentId = (assignmentId: string, studentId: string, s: any, f: any) => {
+    const slug: string = "/group-students?assignmentId=" + assignmentId + "&studentId=" + studentId;
     this.comm.get(slug,
       (res: any) => {
         s(res);

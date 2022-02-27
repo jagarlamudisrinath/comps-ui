@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from 'src/app/models/assignment';
+import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
@@ -9,6 +10,7 @@ import { CommonUtilsService } from 'src/app/services/common-utils.service';
   styleUrls: ['./c-u-assignment.component.scss']
 })
 export class CUAssignmentComponent implements OnInit {
+  @Input() user: User = new User();
   @Input() isNew: boolean = true;
   @Input() originalAssignment: Assignment = new Assignment();
   @Input() selectedAssignment: Assignment = new Assignment();

@@ -3,17 +3,19 @@
         <div *ngIf="!showTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
                 <ng-template [ngSwitchCase]="'CREATE_CLASS'">
-                    <app-c-u-class [isNew]='isNew' [originalClass]='originalClass' [selectedClass]='selectedClass'
-                        [professors]='professors' [graduateAssistants]='graduateAssistants' [drawer]='classes_drawer'
-                        (slide)="slide($event)">
+                    <app-c-u-class [user]="loggedInUser" [isNew]='isNew' [originalClass]='originalClass'
+                        [selectedClass]='selectedClass' [professors]='professors'
+                        [graduateAssistants]='graduateAssistants' [drawer]='classes_drawer' (slide)="slide($event)">
                     </app-c-u-class>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'CLASS_STUDENTS'">
-                    <app-class-students [class]="selectedClass" [drawer]='classes_drawer' (slideParent)="slide($event)">
+                    <app-class-students [user]="loggedInUser" [class]="selectedClass" [drawer]='classes_drawer'
+                        (slideParent)="slide($event)">
                     </app-class-students>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'CLASS_ASSIGNMENTS'">
-                    <app-assignments [class]="selectedClass" [drawer]="classes_drawer" (slideParent)="slide($event)">
+                    <app-assignments [user]="loggedInUser" [class]="selectedClass" [drawer]="classes_drawer"
+                        (slideParent)="slide($event)">
                     </app-assignments>
                 </ng-template>
             </div>
@@ -31,7 +33,8 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
-                    <span matTooltip="Add new class" class="material-icons pull-right">
+                    <span matTooltip="Add new class" class="material-icons pull-right"
+                        *ngIf="loggedInUser.type !== 'STUDENT'">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
                             (click)="add(classes_drawer)">
                             <mat-icon>add</mat-icon>

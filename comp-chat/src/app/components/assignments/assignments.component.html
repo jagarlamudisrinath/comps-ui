@@ -3,13 +3,18 @@
         <div *ngIf="!showAssignmentsTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
                 <ng-template [ngSwitchCase]="'CREATE_ASSIGNMENT'">
-                    <app-c-u-assignment [isNew]="isNew" [originalAssignment]="originalAssignment"
+                    <app-c-u-assignment [user]="user" [isNew]="isNew" [originalAssignment]="originalAssignment"
                         [selectedAssignment]="selectedAssignment" [classId]="class.id" [drawer]="assignments_drawer"
                         (slide)="slide($event)"></app-c-u-assignment>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'ASSIGNMENT_GROUPS'">
-                    <app-groups [class]="class" [assignment]="selectedAssignment" [drawer]="assignments_drawer"
-                        (slideParent)="slide($event)"></app-groups>
+                    <app-groups [user]="user" [class]="class" [assignment]="selectedAssignment"
+                        [drawer]="assignments_drawer" (slideParent)="slide($event)"></app-groups>
+                </ng-template>
+                <ng-template [ngSwitchCase]="'GROUP_CHAT'">
+                    <app-chat [loggedInUser]="user" [class]="class" [assignment]="selectedAssignment"
+                        [group]="studentGroup" [drawer]="assignments_drawer" (slideParent)="slide($event)">
+                    </app-chat>
                 </ng-template>
             </div>
         </div>
@@ -32,7 +37,8 @@
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                     </span> -->
-                    <span matTooltip="Add new assignment" class="material-icons pull-right">
+                    <span matTooltip="Add new assignment" class="material-icons pull-right"
+                        *ngIf="user.type !== 'STUDENT'">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
                             (click)="add(assignments_drawer)">
                             <mat-icon>add</mat-icon>
@@ -79,12 +85,23 @@
                                                         file_download
                                                     </mat-icon>
                                                 </button>
-                                                <button mat-mini-fab>
-                                                    <mat-icon matTooltip="Groups"
-                                                        (click)="gotoAssignmentGroups(assignments_drawer, item)">
-                                                        view_list
-                                                    </mat-icon>
-                                                </button>
+                                                <div *ngIf="user.type === 'STUDENT' then ic1 else ic2"></div>
+                                                <ng-template #ic1>
+                                                    <button mat-mini-fab>
+                                                        <mat-icon matTooltip="Group Chat"
+                                                            (click)="gotoChat(assignments_drawer, item)">
+                                                            question_answer
+                                                        </mat-icon>
+                                                    </button>
+                                                </ng-template>
+                                                <ng-template #ic2>
+                                                    <button mat-mini-fab>
+                                                        <mat-icon matTooltip="Groups"
+                                                            (click)="gotoAssignmentGroups(assignments_drawer, item)">
+                                                            view_list
+                                                        </mat-icon>
+                                                    </button>
+                                                </ng-template>
                                             </div>
                                         </div>
                                     </mat-card-actions>

@@ -38,7 +38,7 @@
                             </span>
                         </mat-card-title-group>
                         <mat-card-content> Any description can be shown here ... </mat-card-content>
-                        <mat-card-actions align="end">
+                        <mat-card-actions align="end" *ngIf="user.type !== 'STUDENT'">
                             <button mat-raised-button color="primary" aria-label="Add New Class"
                                 matTooltip="Add New Class" (click)="addClass(about_drawer)">
                                 <mat-icon>domain_add</mat-icon> Add Class

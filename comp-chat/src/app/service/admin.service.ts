@@ -133,6 +133,15 @@ export class AdminService {
       });
   }
 
+  returnGroupsByStudentId = (assignmentId: string, studentId: string, s: any) => {
+    this.resources.returnGroupsByStudentId(assignmentId, studentId,
+      (response: Group[]) => {
+        s(response);
+      }, (response: any) => {
+        this.commonUtils.openSnackBar(response);
+      });
+  }
+
   createOrUpdateGroup = (classId: string, assignmentId: string, group: Group, s: any) => {
     this.resources.createOrUpdateGroup(classId, assignmentId, group,
       (response: Group) => {

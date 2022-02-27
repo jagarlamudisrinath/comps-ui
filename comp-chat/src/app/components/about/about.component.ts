@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserType } from 'src/app/enums/user-type';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
@@ -39,8 +40,10 @@ export class AboutComponent implements OnInit, OnDestroy {
         this.graduateAssistants = result;
       });
 
-    this.getProfessors();
-    this.getGraduateAssistants();
+    if (this.user.type !== UserType.STUDENT) {
+      this.getProfessors();
+      this.getGraduateAssistants();
+    }
   }
 
   getProfessors = () => {

@@ -16,6 +16,7 @@ import { CommonUtilsService } from 'src/app/services/common-utils.service';
 })
 export class GroupStudentsComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
+  @Input() user: User = new User();
   @Input() class: Class = new Class();
   @Input() assignment: Assignment = new Assignment();
   @Input() group: Group = new Group();

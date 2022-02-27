@@ -3,18 +3,18 @@
         <div *ngIf="!showGroupsTemplate" class="h-100">
             <div [ngSwitch]="showSlideTemplate" class="h-100">
                 <ng-template [ngSwitchCase]="'CREATE_GROUP'">
-                    <app-c-u-group [isNew]="isNew" [originalGroup]="originalGroup" [selectedGroup]="selectedGroup"
-                        [classId]="class.id" [assignmentId]="assignment.id" [drawer]="groups_drawer"
-                        (slide)="slide($event)"></app-c-u-group>
+                    <app-c-u-group [user]="user" [isNew]="isNew" [originalGroup]="originalGroup"
+                        [selectedGroup]="selectedGroup" [classId]="class.id" [assignmentId]="assignment.id"
+                        [drawer]="groups_drawer" (slide)="slide($event)"></app-c-u-group>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'GROUP_STUDENTS'">
-                    <app-group-students [class]="class" [assignment]="assignment" [group]="selectedGroup"
+                    <app-group-students [user]="user" [class]="class" [assignment]="assignment" [group]="selectedGroup"
                         [drawer]="groups_drawer" (slideParent)="slide($event)">
                     </app-group-students>
                 </ng-template>
                 <ng-template [ngSwitchCase]="'GROUP_CHAT'">
-                    <app-chat [loggedInUser]="loggedInUser" [class]="class" [assignment]="assignment"
-                        [group]="selectedGroup" [drawer]="groups_drawer" (slideParent)="slide($event)">
+                    <app-chat [loggedInUser]="user" [class]="class" [assignment]="assignment" [group]="selectedGroup"
+                        [drawer]="groups_drawer" (slideParent)="slide($event)">
                     </app-chat>
                 </ng-template>
             </div>

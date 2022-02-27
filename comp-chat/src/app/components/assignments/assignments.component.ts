@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Assignment } from 'src/app/models/assignment';
 import { Class } from 'src/app/models/class';
+import { Group } from 'src/app/models/group';
+import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
@@ -14,6 +16,7 @@ import { RootScopeService } from 'src/app/services/root-scope.service';
 })
 export class AssignmentsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
+  @Input() user: User = new User();
   @Input() class: Class = new Class();
   @Input() drawer: any;
   @Output() slideParent: any = new EventEmitter();
@@ -26,10 +29,12 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
   selectedAssignment: Assignment = new Assignment();
   isNew: boolean = false;
 
+  studentGroup: Group = new Group();
+
   constructor(
-    private commonUtils: CommonUtilsService,
     private adminService: AdminService,
-    private rootScope: RootScopeService
+    private rootScope: RootScopeService,
+    private commonUtils: CommonUtilsService
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +82,25 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
     this.showSlideTemplate = "ASSIGNMENT_GROUPS";
     this.selectedAssignment = cl;
     this.slide(drawer);
+  }
+
+  gotoChat = (drawer: any, cl: Assignment) => {
+    this.studentGroup = new Group();
+    this.selectedAssignment = cl;
+    this.prepareChatComponents(drawer);
+  }
+
+  prepareChatComponents = (drawer: any) => {
+    this.adminService.returnGroupsByStudentId(this.selectedAssignment.id, this.user.id,
+      (groups: Group[]) => {
+        if (CommonUtilsService.isEmpty(groups)) {
+          this.commonUtils.openSnackBar(`Student [ ${this.user.firstName} ${this.user.lastName} ] is not assigned to any group in assignment [ ${this.selectedAssignment.title} ].`)
+        } else {
+          this.studentGroup = groups[0];
+          this.showSlideTemplate = "GROUP_CHAT";
+          this.slide(drawer);
+        }
+      });
   }
 
   slide = (drawer: any) => {

@@ -12,6 +12,7 @@ import { AdminService } from 'src/app/service/admin.service';
 })
 export class ClassStudentsComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
+  @Input() user: User = new User();
   @Input() class: Class = new Class();
   @Input() drawer: any;
   @Output() slideParent: any = new EventEmitter();

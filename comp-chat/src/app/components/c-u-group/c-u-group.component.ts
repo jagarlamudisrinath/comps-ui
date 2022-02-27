@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Group } from 'src/app/models/group';
+import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
@@ -9,7 +10,7 @@ import { CommonUtilsService } from 'src/app/services/common-utils.service';
   styleUrls: ['./c-u-group.component.scss']
 })
 export class CUGroupComponent implements OnInit {
-
+  @Input() user: User = new User();
   @Input() isNew: boolean = true;
   @Input() originalGroup: Group = new Group();
   @Input() selectedGroup: Group = new Group();

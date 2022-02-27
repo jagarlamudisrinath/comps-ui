@@ -5,6 +5,7 @@ import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({
   selector: 'app-classes',
@@ -22,12 +23,15 @@ export class ClassesComponent implements OnInit, OnDestroy {
   isNew: boolean = false;
   graduateAssistants: User[] = [];
   professors: User[] = [];
+  loggedInUser: User = new User();
 
   constructor(
-    private adminService: AdminService
+    private adminService: AdminService,
+    private rootScope: RootScopeService
   ) { }
 
   ngOnInit(): void {
+    this.loggedInUser = this.rootScope.LOGGED_IN_USER.value;
     this.adminService.classes.pipe(
       takeUntil(this.destroy$))
       .subscribe(result => {
