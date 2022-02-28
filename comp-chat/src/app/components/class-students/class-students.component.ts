@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/service/admin.service';
+import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
   selector: 'app-class-students',
@@ -21,6 +22,8 @@ export class ClassStudentsComponent implements OnInit {
   showTemplate: boolean = true;
   showSlideTemplate: string = "CLASS_STUDENTS";
   classStudents: User[] = [];
+  filteredItems: User[] = [];
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -28,6 +31,8 @@ export class ClassStudentsComponent implements OnInit {
       takeUntil(this.destroy$))
       .subscribe(result => {
         this.classStudents = result;
+        this.filterString = '';
+        this.filterItems();
       });
 
     this.getClassStudents();
@@ -39,6 +44,17 @@ export class ClassStudentsComponent implements OnInit {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+    this.filterItems();
+  }
+
+  filterItems = () => {
+    if (!CommonUtilsService.isEmpty(this.filterString)) {
+      this.filteredItems = Object.assign([], this.classStudents).filter(
+        (item: any) => item.firstName.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1 || item.lastName.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+      )
+    } else {
+      this.filteredItems = this.classStudents;
+    }
   }
 
   uploadStudents = (drawer: any) => {
@@ -48,6 +64,8 @@ export class ClassStudentsComponent implements OnInit {
 
   slide = (drawer: any) => {
     if (drawer._opened) {
+      this.filterString = '';
+      this.filterItems();
       this.showTemplate = true;
     } else {
       this.showTemplate = false;

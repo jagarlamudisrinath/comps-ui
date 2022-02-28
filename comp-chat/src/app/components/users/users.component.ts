@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   showTemplate: boolean = true;
   showSlideTemplate: string = "USERS";
   users: User[] = [];
+  filteredItems: User[] = [];
 
   constructor(
     private rootScope: RootScopeService,
@@ -34,6 +35,8 @@ export class UsersComponent implements OnInit {
         takeUntil(this.destroy$))
         .subscribe(result => {
           this.users = result;
+          this.filterString = '';
+          this.filterItems();
         });
 
       this.getUsers();
@@ -46,6 +49,17 @@ export class UsersComponent implements OnInit {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+    this.filterItems();
+  }
+
+  filterItems = () => {
+    if (!CommonUtilsService.isEmpty(this.filterString)) {
+      this.filteredItems = Object.assign([], this.users).filter(
+        (item: any) => item.firstName.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1 || item.lastName.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+      )
+    } else {
+      this.filteredItems = this.users;
+    }
   }
 
   add = (drawer: any) => {
@@ -55,6 +69,8 @@ export class UsersComponent implements OnInit {
 
   slide = (drawer: any) => {
     if (drawer._opened) {
+      this.filterString = '';
+      this.filterItems();
       this.showTemplate = true;
     } else {
       this.showTemplate = false;

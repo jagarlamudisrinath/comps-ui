@@ -22,13 +22,13 @@
                         </button>
                     </span>
                     <span class="name">Students Of Class [ {{class.title}} ]</span>
-                    <!-- <span class="custom-search">
+                    <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
                             <input matInput (keyup)="applyFilter($event)" autocomplete="off">
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
-                    </span> -->
+                    </span>
                     <span matTooltip="Import students" class="material-icons pull-right"
                         *ngIf="user.type !== 'STUDENT'">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
@@ -41,20 +41,24 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <div *ngIf="classStudents.length === 0 then st1 else st2"></div>
+                    <div *ngIf="filteredItems.length === 0 then st1 else st2"></div>
                     <ng-template #st1>
                         <div class="no-items-instruction">
                             <div *ngIf="filterString === ''">
-                                Students are not added.
-                                <button class="anchor-button" (click)="uploadStudents(class_students_drawer)">
-                                    Click here </button> to upload students file.
+                                <div *ngIf="user.type === 'STUDENT' then cl3 else cl4"></div>
+                                <ng-template #cl3>Students are not added.</ng-template>
+                                <ng-template #cl4>
+                                    Students are not added.
+                                    <button class="anchor-button" (click)="uploadStudents(class_students_drawer)">
+                                        Click here </button> to upload students file.
+                                </ng-template>
                             </div>
                             <div *ngIf="filterString !== ''">Students are not exists with the filter string.</div>
                         </div>
                     </ng-template>
                     <ng-template #st2>
                         <mat-grid-list cols="4" rowHeight="125px">
-                            <mat-grid-tile *ngFor="let item of classStudents">
+                            <mat-grid-tile *ngFor="let item of filteredItems">
                                 <mat-card>
                                     <mat-card-header class="no-actions">
                                         <mat-card-title class="text-overflow"

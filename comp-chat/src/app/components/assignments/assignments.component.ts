@@ -25,6 +25,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
   showAssignmentsTemplate: boolean = true;
   showSlideTemplate: string = "CLASS_ASSIGNMENTS";
   assignments: Assignment[] = [];
+  filteredItems: Assignment[] = [];
   originalAssignment: Assignment = new Assignment();
   selectedAssignment: Assignment = new Assignment();
   isNew: boolean = false;
@@ -43,6 +44,8 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$))
       .subscribe(result => {
         this.assignments = result;
+        this.filterString = '';
+        this.filterItems();
       });
 
     this.getProfessorById();
@@ -62,6 +65,17 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+    this.filterItems();
+  }
+
+  filterItems = () => {
+    if (!CommonUtilsService.isEmpty(this.filterString)) {
+      this.filteredItems = Object.assign([], this.assignments).filter(
+        (item: any) => item.title.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+      )
+    } else {
+      this.filteredItems = this.assignments;
+    }
   }
 
   add = (drawer: any) => {
@@ -114,6 +128,8 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
 
   slide = (drawer: any) => {
     if (drawer._opened) {
+      this.filterString = '';
+      this.filterItems();
       this.showAssignmentsTemplate = true;
     } else {
       this.showAssignmentsTemplate = false;

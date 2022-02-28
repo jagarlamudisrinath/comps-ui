@@ -18,6 +18,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   showTemplate: boolean = true;
   showSlideTemplate: string = "CLASSES";
   classes: Class[] = [];
+  filteredItems: Class[] = [];
   originalClass: Class = new Class();
   selectedClass: Class = new Class();
   isNew: boolean = false;
@@ -36,6 +37,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$))
       .subscribe(result => {
         this.classes = result;
+        this.filterString = '';
+        this.filterItems();
       });
 
     this.adminService.professors.pipe(
@@ -69,6 +72,17 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+    this.filterItems();
+  }
+
+  filterItems = () => {
+    if (!CommonUtilsService.isEmpty(this.filterString)) {
+      this.filteredItems = Object.assign([], this.classes).filter(
+        (item: any) => item.title.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+      )
+    } else {
+      this.filteredItems = this.classes;
+    }
   }
 
   add = (drawer: any) => {
@@ -101,6 +115,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   slide = (drawer: any) => {
     if (drawer._opened) {
+      this.filterString = '';
+      this.filterItems();
       this.showTemplate = true;
     } else {
       this.showTemplate = false;

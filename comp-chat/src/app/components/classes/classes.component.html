@@ -26,13 +26,13 @@
             <div class="header">
                 <mat-toolbar class="p-0">
                     <span class="name">CLASSES</span>
-                    <!-- <span class="custom-search">
+                    <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
                             <input matInput (keyup)="applyFilter($event)" autocomplete="off">
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
-                    </span> -->
+                    </span>
                     <span matTooltip="Add new class" class="material-icons pull-right"
                         *ngIf="loggedInUser.type !== 'STUDENT'">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
@@ -45,20 +45,24 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <div *ngIf="classes.length === 0 then cl1 else cl2"></div>
+                    <div *ngIf="filteredItems.length === 0 then cl1 else cl2"></div>
                     <ng-template #cl1>
                         <div class="no-items-instruction">
                             <div *ngIf="filterString === ''">
-                                Classes are not added.
-                                <button class="anchor-button" (click)="add(classes_drawer)">
-                                    Click here </button> to add class.
+                                <div *ngIf="loggedInUser.type === 'STUDENT' then cl3 else cl4"></div>
+                                <ng-template #cl3>Classes are not added.</ng-template>
+                                <ng-template #cl4>
+                                    Classes are not added.
+                                    <button class="anchor-button" (click)="add(classes_drawer)">
+                                        Click here </button> to add class.
+                                </ng-template>
                             </div>
                             <div *ngIf="filterString !== ''">Classes are not exists with the filter string.</div>
                         </div>
                     </ng-template>
                     <ng-template #cl2>
                         <mat-grid-list cols="4" rowHeight="120px">
-                            <mat-grid-tile *ngFor="let item of classes">
+                            <mat-grid-tile *ngFor="let item of filteredItems">
                                 <mat-card>
                                     <mat-card-header>
                                         <mat-card-title class="text-overflow" matTooltip="{{item.title}}">

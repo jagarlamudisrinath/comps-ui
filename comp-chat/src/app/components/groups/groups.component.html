@@ -31,13 +31,13 @@
                         </button>
                     </span>
                     <span class="name">Groups of Assignment [ {{assignment.title}} ]</span>
-                    <!-- <span class="custom-search">
+                    <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
                             <input matInput (keyup)="applyFilter($event)" autocomplete="off">
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
-                    </span> -->
+                    </span>
                     <span matTooltip="Add new group" class="material-icons pull-right">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
                             (click)="add(groups_drawer)">
@@ -49,20 +49,24 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <div *ngIf="groups.length === 0 then gr1 else gr2"></div>
+                    <div *ngIf="filteredItems.length === 0 then gr1 else gr2"></div>
                     <ng-template #gr1>
                         <div class="no-items-instruction">
                             <div *ngIf="filterString === ''">
-                                Groups are not added.
-                                <button class="anchor-button" (click)="add(groups_drawer)">
-                                    Click here </button> to add group.
+                                <div *ngIf="user.type === 'STUDENT' then cl3 else cl4"></div>
+                                <ng-template #cl3>Groups are not added.</ng-template>
+                                <ng-template #cl4>
+                                    Groups are not added.
+                                    <button class="anchor-button" (click)="add(groups_drawer)">
+                                        Click here </button> to add group.
+                                </ng-template>
                             </div>
                             <div *ngIf="filterString !== ''">Groups are not exists with the filter string.</div>
                         </div>
                     </ng-template>
                     <ng-template #gr2>
                         <mat-grid-list cols="4" rowHeight="120px">
-                            <mat-grid-tile *ngFor="let item of groups">
+                            <mat-grid-tile *ngFor="let item of filteredItems">
                                 <mat-card>
                                     <mat-card-header>
                                         <mat-card-title class="text-overflow" matTooltip="{{item.title}}">

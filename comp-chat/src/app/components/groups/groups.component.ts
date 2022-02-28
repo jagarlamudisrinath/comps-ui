@@ -26,6 +26,7 @@ export class GroupsComponent implements OnInit {
   showGroupsTemplate: boolean = true;
   showSlideTemplate: string = "ASSIGNMENT_GROUPS";
   groups: Group[] = [];
+  filteredItems: Group[] = [];
   originalGroup: Group = new Group();
   selectedGroup: Group = new Group();
   isNew: boolean = false;
@@ -40,6 +41,8 @@ export class GroupsComponent implements OnInit {
       takeUntil(this.destroy$))
       .subscribe(result => {
         this.groups = result;
+        this.filterString = '';
+        this.filterItems();
       });
 
     this.getGroups();
@@ -51,6 +54,17 @@ export class GroupsComponent implements OnInit {
 
   applyFilter(event: any) {
     this.filterString = event.target.value;
+    this.filterItems();
+  }
+
+  filterItems = () => {
+    if (!CommonUtilsService.isEmpty(this.filterString)) {
+      this.filteredItems = Object.assign([], this.groups).filter(
+        (item: any) => item.title.toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+      )
+    } else {
+      this.filteredItems = this.groups;
+    }
   }
 
   add = (drawer: any) => {
@@ -89,6 +103,8 @@ export class GroupsComponent implements OnInit {
 
   slide = (drawer: any) => {
     if (drawer._opened) {
+      this.filterString = '';
+      this.filterItems();
       this.showGroupsTemplate = true;
     } else {
       this.showGroupsTemplate = false;

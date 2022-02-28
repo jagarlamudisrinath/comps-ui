@@ -16,13 +16,13 @@
             <div class="header">
                 <mat-toolbar class="p-0">
                     <span class="name">USERS</span>
-                    <!-- <span class="custom-search">
+                    <span class="custom-search">
                         <mat-form-field appearance="outline">
                             <mat-label>Search</mat-label>
                             <input matInput (keyup)="applyFilter($event)" autocomplete="off">
                             <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
-                    </span> -->
+                    </span>
                     <span matTooltip="Import users" class="material-icons pull-right">
                         <button class="custom-medium-fab mb-2" mat-mini-fab [color]="'primary'"
                             (click)="add(users_drawer)">
@@ -34,7 +34,7 @@
             </div>
             <div slim-scroll [offset]="69" [alwaysVisible]="true">
                 <div class="content">
-                    <div *ngIf="users.length === 0 then us1 else us2"></div>
+                    <div *ngIf="filteredItems.length === 0 then us1 else us2"></div>
                     <ng-template #us1>
                         <div class="no-items-instruction">
                             <div *ngIf="filterString === ''">
@@ -47,7 +47,7 @@
                     </ng-template>
                     <ng-template #us2>
                         <mat-grid-list cols="4" rowHeight="125px">
-                            <mat-grid-tile *ngFor="let item of users">
+                            <mat-grid-tile *ngFor="let item of filteredItems">
                                 <mat-card>
                                     <mat-card-header class="no-actions">
                                         <mat-card-title class="text-overflow"
