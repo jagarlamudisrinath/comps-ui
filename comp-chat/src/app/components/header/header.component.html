@@ -1,7 +1,10 @@
 <div *ngIf="rootScope.IS_USER_LOGGED_IN.value then lg1 else lg2"></div>
 <ng-template #lg1>
     <mat-toolbar class="app-header">
-        <span>COMP CHAT</span>
+        <span>
+            <span>COMPS CHAT</span>
+            <span class="material-icons chat-icon"> question_answer </span>
+        </span>
         <span class="middle-space"></span>
         <mat-icon (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
             account_circle
