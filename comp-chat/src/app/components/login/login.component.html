@@ -1,38 +1,42 @@
 <section class="h-100">
     <div class="container-fluid h-100">
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center align-items-center h-100 login-container">
             <div class="col-md-9 col-lg-6 col-xl-5 login-image">
-                <img src="../../../assets/images/chat-3.png" class="img-fluid" alt="Chat">
-                <h1>Welcome to COMPS CHAT</h1>
-                <h3 class="mb-0">Computer Mediated Problem Solving Research Lab
-                    Computer Science</h3>
-                <h4 class="mb-0">North Carolina A&T State University | Valparaiso University</h4>
+                <div class="content-position">
+                    <img src="../../../assets/images/chat-3.png" class="img-fluid" alt="Chat">
+                    <h1>Welcome to COMPS CHAT</h1>
+                    <h3 class="mb-0">Computer Mediated Problem Solving Research Lab
+                        Computer Science</h3>
+                    <h4 class="mb-0">North Carolina A&T State University | Valparaiso University</h4>
+                </div>
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 login-form">
-                <form #f='ngForm' (ngSubmit)="login()" autocomplete="off">
-                    <h2 class="text-primary login-header">Login for Chat</h2>
-                    <div class="col-12 mb-2">
-                        <mat-form-field appearance="outline">
-                            <mat-label>User Name</mat-label>
-                            <input name="username" [(ngModel)]="user.username" matInput required autofocus>
-                            <mat-icon matSuffix>person</mat-icon>
-                            <mat-error *ngIf="f.controls['username']?.errors?.required">User name is mandatory.
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Password</mat-label>
-                            <input name="password" [(ngModel)]="user.password" matInput required
-                                [type]="hide ? 'password' : 'text'">
-                            <mat-icon matSuffix (click)="$event.stopPropagation();$event.preventDefault();hide = !hide">
-                                {{hide ? 'visibility_off' : 'visibility'}}
-                            </mat-icon>
-                            <mat-error *ngIf="f.controls['password']?.errors?.required">Password is mandatory.
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <!-- <div>
+                <div class="content-position">
+                    <form #f='ngForm' (ngSubmit)="login()" autocomplete="off">
+                        <h2 class="text-primary login-header">Login for Chat</h2>
+                        <div class="col-12 mb-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>User Name</mat-label>
+                                <input name="username" [(ngModel)]="user.username" matInput required autofocus>
+                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-error *ngIf="f.controls['username']?.errors?.required">User name is mandatory.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input name="password" [(ngModel)]="user.password" matInput required
+                                    [type]="hide ? 'password' : 'text'">
+                                <mat-icon matSuffix
+                                    (click)="$event.stopPropagation();$event.preventDefault();hide = !hide">
+                                    {{hide ? 'visibility_off' : 'visibility'}}
+                                </mat-icon>
+                                <mat-error *ngIf="f.controls['password']?.errors?.required">Password is mandatory.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div>
                         <mat-form-field appearance="outline">
                             <mat-label>Who are you?</mat-label>
                             <mat-select [(ngModel)]="user.type" name="type">
@@ -44,11 +48,12 @@
                             <mat-icon matSuffix>question_mark</mat-icon>
                         </mat-form-field>
                     </div> -->
-                    <div class="text-center mt-4 pt-2">
-                        <button type="submit" mat-raised-button class="px-5 py-1" color="primary"
-                            [disabled]="f.invalid">Login</button>
-                    </div>
-                </form>
+                        <div class="text-center mt-4 pt-2">
+                            <button type="submit" mat-raised-button class="px-5 py-1" color="primary"
+                                [disabled]="f.invalid">Login</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

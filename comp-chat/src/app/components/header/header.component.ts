@@ -13,6 +13,7 @@ import { RootScopeService } from 'src/app/services/root-scope.service';
 export class HeaderComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   isOpen: boolean = false;
+  isLoggedIn: boolean = false;
   loggedInUser: User = new User();
   constructor(public rootScope: RootScopeService, private resources: ResourcesService) { }
 
@@ -34,9 +35,16 @@ export class HeaderComponent implements OnInit {
         this.loggedInUser = result;
       });
 
+    this.rootScope.IS_USER_LOGGED_IN.pipe(
+      takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isLoggedIn = result;
+      });
+
   }
 
   logout = () => {
+    this.rootScope.IS_USER_LOGGED_IN.next(false);
     localStorage.clear();
     this.resources.logout();
     if (window.location.href.indexOf('login') === -1) {

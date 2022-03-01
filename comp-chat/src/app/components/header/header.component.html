@@ -1,4 +1,4 @@
-<div *ngIf="rootScope.IS_USER_LOGGED_IN.value then lg1 else lg2"></div>
+<div *ngIf="isLoggedIn then lg1 else lg2"></div>
 <ng-template #lg1>
     <mat-toolbar class="app-header">
         <span>
