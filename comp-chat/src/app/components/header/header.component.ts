@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
   logout = () => {
     localStorage.clear();
-    //this.resources.logout();
+    this.resources.logout();
     if (window.location.href.indexOf('login') === -1) {
       window.location.href = '/login';
     }
