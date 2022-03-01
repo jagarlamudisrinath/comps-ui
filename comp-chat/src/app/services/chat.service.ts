@@ -36,7 +36,8 @@ export class ChatService {
     this.subscription = this.stompClient.subscribe('/topic/' + groupId, (message: any) => {
       if (message.body) {
         let msg = JSON.parse(message.body);
-        let user = this.prepareName(msg.sender);
+        let user = this.getUserById(msg.sender);
+        user = this.prepareName(user);
         msg.userName = user.userName;
         msg.shortName = user.shortName;
         this.messages.value.push(msg);
@@ -112,6 +113,10 @@ export class ChatService {
       groupUsers.push(this.prepareName(professor))
     }
     return groupUsers;
+  }
+
+  getUserById = (userId: string) => {
+    return this.groupStudents.value.find(user => user.id === userId);
   }
 
   prepareName = (user: any) => {
