@@ -35,8 +35,8 @@ export class ChatService {
   subscribe = (groupId: string) => {
     this.subscription = this.stompClient.subscribe('/topic/' + groupId, (message: any) => {
       if (message.body) {
-        let user = this.prepareName(this.rootScope.LOGGED_IN_USER.value);
         let msg = JSON.parse(message.body);
+        let user = this.prepareName(msg.sender);
         msg.userName = user.userName;
         msg.shortName = user.shortName;
         this.messages.value.push(msg);
