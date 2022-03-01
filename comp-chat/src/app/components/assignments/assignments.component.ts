@@ -97,7 +97,7 @@ export class AssignmentsComponent implements OnInit, OnDestroy {
   }
 
   downloadAssignmentFile = (drawer: any, cl: Assignment) => {
-    let url = this.rootScope.APP_ROOT_URL + '/assignments/' + cl.id + '/fileDownload';
+    let url = this.rootScope.APP_ROOT_URL + '/assignments/' + cl.id + '/file';
     window.location.href = url;
   }
 

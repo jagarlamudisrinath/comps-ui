@@ -77,7 +77,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   downloadAssignmentFile = () => {
-    let url = this.rootScope.APP_ROOT_URL + '/assignments/' + this.assignment.id + '/fileDownload';
+    let url = this.rootScope.APP_ROOT_URL + '/assignments/' + this.assignment.id + '/file';
     window.location.href = url;
   }
 

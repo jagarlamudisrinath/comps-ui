@@ -18,11 +18,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $def
     color: $white-color;
     font-weight: 600;
 
-    span.chat-icon {
+    .chat-icon {
         position: absolute;
-        top: 18px;
+        top: 13px;
         margin-left: 8px;
-        font-size: 28px;
     }
 }
 
