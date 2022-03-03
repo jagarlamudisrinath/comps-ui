@@ -108,13 +108,13 @@
                     </div>
                 </div>
                 <div class="write-msg">
-                    <form #f="ngForm" autocomplete="off" (onSubmit)="sendMessage()">
+                    <form #f="ngForm" autocomplete="off">
                         <div>
                             <input matInput type="text" name="content" placeholder="Type a message"
                                 [(ngModel)]="chatMessage.content" (keyup.enter)="sendMessage()"
                                 [disabled]="!isConnected" required auto-focus />
                             <div class="send-msg">
-                                <button type="submit" mat-mini-fab color="primary" class="custom-medium-fab"
+                                <button type="button" mat-mini-fab color="primary" class="custom-medium-fab"
                                     aria-label="Send Message" (click)="sendMessage()"
                                     [disabled]="f.invalid || !isConnected">
                                     <mat-icon>send</mat-icon>
