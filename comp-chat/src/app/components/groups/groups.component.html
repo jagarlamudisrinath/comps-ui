@@ -47,8 +47,8 @@
                 </mat-toolbar>
                 <mat-divider></mat-divider>
             </div>
-            <div slim-scroll [offset]="69" [alwaysVisible]="true">
-                <div class="content">
+            <div class="content">
+                <div slim-scroll [offset]="74" [alwaysVisible]="true">
                     <div *ngIf="filteredItems.length === 0 then gr1 else gr2"></div>
                     <ng-template #gr1>
                         <div class="no-items-instruction">

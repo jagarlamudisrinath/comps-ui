@@ -29,6 +29,7 @@ import { GroupStudentsComponent } from './components/group-students/group-studen
 import { CUGroupComponent } from './components/c-u-group/c-u-group.component';
 import { ClassStudentsComponent } from './components/class-students/class-students.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ChatComponent } from './components/chat/chat.component';
     GroupStudentsComponent,
     CUGroupComponent,
     ClassStudentsComponent,
-    ChatComponent
+    ChatComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     HttpClientModule,

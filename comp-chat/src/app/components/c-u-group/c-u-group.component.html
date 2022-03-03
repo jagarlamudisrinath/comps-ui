@@ -18,7 +18,7 @@
                     <mat-form-field hintLabel="Max 75 characters" appearance="outline">
                         <mat-label>Name</mat-label>
                         <input name="title" [(ngModel)]="selectedGroup.title" matInput maxlength="75" required
-                            autofocus>
+                            auto-focus>
                         <mat-hint align="end">{{f.controls['title']?.value?.length || 0}}/75</mat-hint>
                         <mat-error *ngIf="f.controls['title']?.errors?.required">Name is mandatory.</mat-error>
                     </mat-form-field>

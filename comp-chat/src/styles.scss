@@ -13,6 +13,30 @@ $default-font-color: #000000de;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $default-font-color; }
 
+/* spinner */
+.loaderImageContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1052;
+
+    .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+
+.is-loading>span.mat-option-text {
+    display: flex;
+    justify-content: center;
+}
+
 .app-header:not(.with-out-header) {
     background-color: $banner-color;
     color: $white-color;
@@ -688,6 +712,8 @@ mat-card {
                 width: 4%;
                 display: inline-block;
                 text-align: right;
+                height: 48px;
+                line-height: 48px;
                 
                 mat-icon {
                     margin-left: 2px;

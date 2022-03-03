@@ -35,6 +35,7 @@ export class CommunicationsService {
   }
 
   public call = (method: string, slug: string, s: any, f: any, p: any, payload?: any, custom?: any) => {
+    this.rootScope.updateRequestsCount("ADD");
     var url = "";
     if (!custom || !custom.noUrlPrefix) {
       url = this.rootScope.APP_ROOT_URL + slug;
