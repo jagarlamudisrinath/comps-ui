@@ -31,9 +31,9 @@ export class ChatService {
     const ws = new SockJS(serverUrl);
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({ groupId: groupId }, function (frame: any) {
-      that.isConnected.next(true);
       that.subscribe(groupId);
       that.rootScope.updateRequestsCount('REMOVE');
+      that.isConnected.next(true);
     });
   }
 
@@ -130,11 +130,11 @@ export class ChatService {
     let shortName: string = '';
     if (!CommonUtilsService.isEmpty(user.firstName)) {
       name = user.firstName;
-      shortName = user.firstName[0];
+      shortName = user.firstName[0].toUpperCase();
     }
     if (!CommonUtilsService.isEmpty(user.lastName)) {
       name = name + " " + user.lastName;
-      shortName = shortName + user.lastName[0];
+      shortName = shortName + user.lastName[0].toUpperCase();
     }
     user.userName = name;
     user.shortName = shortName;
