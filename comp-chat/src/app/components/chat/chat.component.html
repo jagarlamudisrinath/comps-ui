@@ -111,9 +111,9 @@
                     <form #f="ngForm" autocomplete="off">
                         <div>
                             <input type="text" name="content" placeholder="Type a message"
-                                [(ngModel)]="chatMessage.content" required />
+                                [(ngModel)]="chatMessage.content" required (keyup.enter)="sendMessage()" />
                             <div class="send-msg">
-                                <button type="submit" mat-mini-fab color="primary" class="custom-medium-fab"
+                                <button type="button" mat-mini-fab color="primary" class="custom-medium-fab"
                                     aria-label="Send Message" [disabled]="f.invalid" (click)="sendMessage()">
                                     <mat-icon>send</mat-icon>
                                 </button>

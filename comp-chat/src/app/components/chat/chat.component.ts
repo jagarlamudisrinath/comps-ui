@@ -81,7 +81,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     window.location.href = url;
   }
 
-  sendMessage() {
+  sendMessage = () => {
+    this.chatMessage.content = this.chatMessage.content.trim();
     if (!CommonUtilsService.isEmpty(this.chatMessage.content)) {
       this.chatService.sendMessage(this.chatMessage);
       this.chatMessage.content = '';
