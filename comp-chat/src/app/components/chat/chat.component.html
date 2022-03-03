@@ -111,10 +111,12 @@
                     <form #f="ngForm" autocomplete="off" (onSubmit)="sendMessage()">
                         <div>
                             <input matInput type="text" name="content" placeholder="Type a message"
-                                [(ngModel)]="chatMessage.content" required auto-focus />
+                                [(ngModel)]="chatMessage.content" (keyup.enter)="sendMessage()"
+                                [disabled]="!isConnected" required auto-focus />
                             <div class="send-msg">
                                 <button type="submit" mat-mini-fab color="primary" class="custom-medium-fab"
-                                    aria-label="Send Message" [disabled]="f.invalid">
+                                    aria-label="Send Message" (click)="sendMessage()"
+                                    [disabled]="f.invalid || !isConnected">
                                     <mat-icon>send</mat-icon>
                                 </button>
                             </div>

@@ -17,10 +17,13 @@ export class ChatService {
   subscription: any;
   groupStudents: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   messages: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>([]);
+  isConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private rootScope: RootScopeService, private resources: ResourcesService, private commonUtils: CommonUtilsService) {
-
-  }
+  constructor(
+    private rootScope: RootScopeService,
+    private resources: ResourcesService,
+    private commonUtils: CommonUtilsService
+  ) { }
 
   connect = (groupId: string) => {
     const that = this;
@@ -28,7 +31,9 @@ export class ChatService {
     const ws = new SockJS(serverUrl);
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({ groupId: groupId }, function (frame: any) {
+      that.isConnected.next(true);
       that.subscribe(groupId);
+      that.rootScope.updateRequestsCount('REMOVE');
     });
   }
 
@@ -53,6 +58,7 @@ export class ChatService {
     }
     this.stompClient.disconnect(function () {
       that.stompClient = undefined;
+      that.isConnected.next(false);
     });
   }
 

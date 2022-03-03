@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   chatMessage: ChatMessage = new ChatMessage();
   sizePerPage: number = 50;
   pageNo: number = 0;
+  isConnected: boolean = false;
 
   constructor(
     private rootScope: RootScopeService,
@@ -41,6 +42,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chatMessage.chatId = this.group.id;
     this.chatMessage.sender = this.loggedInUser.id;
+    this.getConnection();
+
+    this.chatService.isConnected.pipe(
+      takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isConnected = result;
+      });
 
     this.chatService.groupStudents.pipe(
       takeUntil(this.destroy$))
@@ -58,6 +66,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
 
     this.getGroupStudents();
+  }
+
+  getConnection = () => {
+    this.rootScope.updateRequestsCount('ADD');
     this.chatService.connect(this.group.id);
   }
 
