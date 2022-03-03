@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
-import { AdminService } from 'src/app/service/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
 

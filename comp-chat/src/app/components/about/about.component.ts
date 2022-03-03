@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { UserType } from 'src/app/enums/user-type';
 import { Class } from 'src/app/models/class';
 import { User } from 'src/app/models/user';
-import { AdminService } from 'src/app/service/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
 
 @Component({

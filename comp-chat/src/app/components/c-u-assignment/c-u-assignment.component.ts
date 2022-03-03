@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from 'src/app/models/assignment';
 import { User } from 'src/app/models/user';
-import { AdminService } from 'src/app/service/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({

@@ -5,7 +5,7 @@ import { Assignment } from 'src/app/models/assignment';
 import { Class } from 'src/app/models/class';
 import { Group } from 'src/app/models/group';
 import { User } from 'src/app/models/user';
-import { AdminService } from 'src/app/service/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({

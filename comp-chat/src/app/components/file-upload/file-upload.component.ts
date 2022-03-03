@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AdminService } from 'src/app/service/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
 
 @Component({
