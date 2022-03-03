@@ -47,7 +47,6 @@ export class ChatService {
         this.messages.value.push(msg);
       }
     });
-    this.rootScope.updateRequestsCount('REMOVE');
     this.isConnected.next(true);
   }
 

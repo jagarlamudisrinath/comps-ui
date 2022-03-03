@@ -48,6 +48,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$))
       .subscribe(result => {
         this.isConnected = result;
+        if (result) {
+          this.rootScope.REQUEST_COUNT.next(1);
+          this.rootScope.updateRequestsCount('REMOVE');
+        }
       });
 
     this.chatService.groupStudents.pipe(
@@ -69,6 +73,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   getConnection = () => {
+    this.rootScope.REQUEST_COUNT.next(20);
     this.rootScope.updateRequestsCount('ADD');
     this.chatService.connect(this.group.id);
   }
