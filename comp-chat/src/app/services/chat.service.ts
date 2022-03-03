@@ -32,8 +32,7 @@ export class ChatService {
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({ groupId: groupId }, function (frame: any) {
       that.subscribe(groupId);
-      that.rootScope.updateRequestsCount('REMOVE');
-      that.isConnected.next(true);
+
     });
   }
 
@@ -48,6 +47,8 @@ export class ChatService {
         this.messages.value.push(msg);
       }
     });
+    this.rootScope.updateRequestsCount('REMOVE');
+    this.isConnected.next(true);
   }
 
   disconnect = (groupId: string) => {
