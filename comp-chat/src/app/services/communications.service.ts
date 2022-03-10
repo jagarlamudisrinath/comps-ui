@@ -89,7 +89,7 @@ export class CommunicationsService {
         macreError = error ? error : macreError;
         if (macreError.status === 401 && macreError.url.indexOf('login') === -1) {
           this.router.navigate(['login']);
-          f(macreError.error);
+          f('Session timeout. Please login again.');
         } else {
           f(macreError.error);
         }
