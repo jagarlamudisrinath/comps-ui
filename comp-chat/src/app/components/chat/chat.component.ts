@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { ChatService } from 'src/app/services/chat.service';
 import { ChatMessage } from 'src/app/model/chat-message';
 import { CommonUtilsService } from 'src/app/services/common-utils.service';
+import { v4 as uuidv4 } from 'uuid';
 declare var $: any;
 @Component({
   selector: 'app-chat',
@@ -40,8 +41,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.chatMessage.chatId = this.group.id;
-    this.chatMessage.sender = this.loggedInUser.id;
     this.getConnection();
 
     this.chatService.isConnected.pipe(
@@ -98,11 +97,34 @@ export class ChatComponent implements OnInit, OnDestroy {
     window.location.href = url;
   }
 
+  onKeyPress = (event: any) => {
+    if (event.code === 'Enter' && !event.shiftKey) {
+      this.sendMessage();
+    } else {
+      if (this.chatMessage.id === undefined) {
+        const uuid = uuidv4();
+        this.chatMessage.id = uuid;
+        this.chatMessage.chatId = this.group.id;
+        this.chatMessage.sender = this.loggedInUser.id;
+      }
+      this.chatMessage.content = event.target.value;
+      this.chatService.sendMessage(this.chatMessage);
+    }
+  }
+
+  onFocusOut = (event: any) => {
+    if (this.chatMessage.id && this.chatMessage.content === '') {
+      this.chatMessages.pop();
+      this.chatMessage = new ChatMessage();
+    }
+  }
+
   sendMessage = () => {
     this.chatMessage.content = this.chatMessage.content.trim();
     if (!CommonUtilsService.isEmpty(this.chatMessage.content)) {
+      this.chatMessage.persist = true;
       this.chatService.sendMessage(this.chatMessage);
-      this.chatMessage.content = '';
+      this.chatMessage = new ChatMessage();
     }
   }
 

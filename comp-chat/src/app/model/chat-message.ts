@@ -7,4 +7,5 @@ export class ChatMessage {
     sender: string = '';
     createdOn: any;
     type: MessageType = MessageType.CHAT;
+    persist: boolean = false;
 }

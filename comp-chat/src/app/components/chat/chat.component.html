@@ -53,7 +53,7 @@
                 <mat-divider></mat-divider>
             </div>
             <div class="messages-container">
-                <div slim-scroll [offset]="67" [autoScrollToBottom]="true" [start]="'bottom'"
+                <div slim-scroll [offset]="65" [autoScrollToBottom]="true" [start]="'bottom'"
                     (scroll)="onScroll($event)">
                     <div class="messages">
                         <div class="message" *ngFor="let data of chatMessages ">
@@ -108,15 +108,14 @@
                     </div>
                 </div>
                 <div class="write-msg">
-                    <form #f="ngForm" autocomplete="off">
+                    <form #f="ngForm" autocomplete="off" (ngSubmit)="sendMessage()">
                         <div>
-                            <input matInput type="text" name="content" placeholder="Type a message"
-                                [(ngModel)]="chatMessage.content" (keyup.enter)="sendMessage()"
-                                [disabled]="!isConnected" required auto-focus />
+                            <textarea class="input" matInput name="content" placeholder="Type a message" rows="1"
+                                [(ngModel)]="chatMessage.content" [disabled]="!isConnected" required auto-focus
+                                (keyup)="onKeyPress($event)" (focusout)="onFocusOut($event)"></textarea>
                             <div class="send-msg">
-                                <button type="button" mat-mini-fab color="primary" class="custom-medium-fab"
-                                    aria-label="Send Message" (click)="sendMessage()"
-                                    [disabled]="f.invalid || !isConnected">
+                                <button type="submit" mat-mini-fab color="primary" class="custom-medium-fab"
+                                    aria-label="Send Message" [disabled]="f.invalid || !isConnected">
                                     <mat-icon>send</mat-icon>
                                 </button>
                             </div>

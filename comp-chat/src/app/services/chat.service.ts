@@ -44,7 +44,12 @@ export class ChatService {
         user = this.prepareName(user);
         msg.userName = user.userName;
         msg.shortName = user.shortName;
-        this.messages.value.push(msg);
+        const oldMessage = this.getExistingMessageById(msg.id);
+        if (oldMessage) {
+          oldMessage.content = msg.content;
+        } else {
+          this.messages.value.push(msg);
+        }
       }
     });
     this.isConnected.next(true);
@@ -62,9 +67,12 @@ export class ChatService {
     });
   }
 
-
   sendMessage(chatMessage: ChatMessage) {
     this.stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
+  }
+
+  getExistingMessageById = (id: string) => {
+    return this.messages.value.find(msg => id === msg.id);
   }
 
   getGroupStudents = (groupId: string, professor: User) => {

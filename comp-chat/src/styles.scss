@@ -649,6 +649,8 @@ mat-card {
                 }
 
                 .title {
+                    display: inline-block;
+                    white-space: pre-line;
                     background: #ebebeb none repeat scroll 0 0;
                     border-radius: 3px;
                     color: #646464;
@@ -696,16 +698,17 @@ mat-card {
         }
 
         .write-msg {
-            padding: 0 10px 0 20px;
+            padding: 3px 10px 3px 20px;
             border-top: 1px solid #c4c4c4;
 
-            input {
+            .input {
+                resize: none;
                 background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
                 border: medium none;
                 color: $default-font-color;
-                font-size: 15px;
-                min-height: 48px;
+                font-size: 14px;
                 width: 95%;
+                padding: 7px 0;
             }
 
             .send-msg {
