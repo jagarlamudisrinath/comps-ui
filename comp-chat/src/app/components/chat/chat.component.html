@@ -1,6 +1,6 @@
 <div class="student-chat">
     <mat-drawer-container class="drawerContainer" autosize>
-        <mat-drawer #chat_drawer class="inner group-members" mode="side" position='end'>
+        <mat-drawer #chat_drawer class="inner group-members" mode="side" position='end' [opened]="true">
             <div class="heading">
                 <mat-toolbar>
                     <span>GROUP MEMBERS</span>
@@ -56,6 +56,7 @@
                 <div slim-scroll [offset]="65" [autoScrollToBottom]="true" [start]="'bottom'"
                     (scroll)="onScroll($event)">
                     <div class="messages">
+                        <!-- // Two side chat message code //
                         <div class="message" *ngFor="let data of chatMessages ">
                             <div *ngIf="data.type === 'CHAT' then ch1 else ch2"></div>
                             <ng-template #ch1>
@@ -89,6 +90,43 @@
                                         <span class="title out">{{data.content}}</span>
                                     </div>
                                 </ng-template>
+                            </ng-template>
+                            <ng-template #ch2>
+                                <div class="info-msg">
+                                    <div class="line">
+                                        <mat-divider></mat-divider>
+                                    </div>
+                                    <div class="name mat-typography">
+                                        {{data.type === 'JOIN' ? ''+data.userName+' joined':''+data.userName+' left' }}
+                                        | {{data.createdOn | date: 'dd MMM'}} | {{data.createdOn | date: 'h:mm:ss a'}}
+                                    </div>
+                                    <div class="line">
+                                        <mat-divider></mat-divider>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div> -->
+                        <div class="message" *ngFor="let data of chatMessages ">
+                            <div *ngIf="data.type === 'CHAT' then ch1 else ch2"></div>
+                            <ng-template #ch1>
+                                <div class="image">
+                                    <span class="material-icons">
+                                        <button mat-mini-fab [color]="'primary'">
+                                            {{data.shortName}}
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="in-msg">
+                                    <div class="details">
+                                        <span class="sub-title">
+                                            {{data.userName}} |
+                                            {{data.createdOn | date: 'dd MMM'}} |
+                                            {{data.createdOn | date: 'h:mm:ss a'}}
+                                        </span>
+                                        <span class="title"
+                                            [ngClass]="{'out': data.sender === loggedInUser.id}">{{data.content}}</span>
+                                    </div>
+                                </div>
                             </ng-template>
                             <ng-template #ch2>
                                 <div class="info-msg">

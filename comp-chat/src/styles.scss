@@ -622,7 +622,7 @@ mat-card {
                 
                 .image {
                     display: inline-block;
-                    width: 5%;
+                    width: 7%;
                     button {
                         box-shadow: none !important;
                         cursor: default !important;
@@ -635,7 +635,7 @@ mat-card {
                 .in-msg {
                     display: inline-block;
                     vertical-align: bottom;
-                    width: 94%;
+                    width: 93%;
                 }
 
                 .out-msg {
@@ -645,7 +645,7 @@ mat-card {
                 }
 
                 .details {
-                    max-width: 50%;
+                    max-width: 100%;
                 }
 
                 .title {
@@ -661,7 +661,6 @@ mat-card {
                     &.out {
                         background: #3f51b5 none repeat scroll 0 0;
                         color:#fff;
-                        text-align: end;
                     }
                 }
 
