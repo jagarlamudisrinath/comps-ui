@@ -138,7 +138,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.pageNo = 0;
-    this.chatService.disconnect(this.group.id);
+    this.chatService.disconnect(this.group.id, this.loggedInUser.id);
     this.chatService.groupStudents.next([]);
     this.chatService.messages.next([]);
     this.destroy$.next(true);

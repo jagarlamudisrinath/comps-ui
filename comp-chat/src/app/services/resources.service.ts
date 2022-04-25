@@ -220,4 +220,15 @@ export class ResourcesService {
         f(res);
       }, null, null);
   }
+
+  disconnectChat = (groupId: string, userId: string) => {
+    const slug = "/chat?chatId=" + groupId + "&sender=" + userId;
+    this.comm.delete(slug, {},
+      (res: any) => {
+        // No message required
+      }, (res: any) => {
+        // No message required
+      });
+
+  }
 }

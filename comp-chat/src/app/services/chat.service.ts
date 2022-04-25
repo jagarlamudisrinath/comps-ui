@@ -55,13 +55,14 @@ export class ChatService {
     this.isConnected.next(true);
   }
 
-  disconnect = (groupId: string) => {
+  disconnect = (groupId: string, userId: string) => {
     const that = this;
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = undefined;
     }
     this.stompClient.disconnect(function () {
+      that.resources.disconnectChat(groupId, userId);
       that.stompClient = undefined;
       that.isConnected.next(false);
     });

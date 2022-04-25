@@ -133,8 +133,12 @@
                                     <div class="line">
                                         <mat-divider></mat-divider>
                                     </div>
-                                    <div class="name mat-typography">
-                                        {{data.type === 'JOIN' ? ''+data.userName+' joined':''+data.userName+' left' }}
+                                    <div class="name mat-typography" *ngIf="data.type === 'JOINED'">
+                                        {{data.userName}} joined
+                                        | {{data.createdOn | date: 'dd MMM'}} | {{data.createdOn | date: 'h:mm:ss a'}}
+                                    </div>
+                                    <div class="name mat-typography" *ngIf="data.type === 'LEFT'">
+                                        {{data.userName}} left
                                         | {{data.createdOn | date: 'dd MMM'}} | {{data.createdOn | date: 'h:mm:ss a'}}
                                     </div>
                                     <div class="line">
