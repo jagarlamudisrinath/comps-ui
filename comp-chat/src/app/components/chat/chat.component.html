@@ -17,7 +17,8 @@
                     <div class="member" *ngFor="let st of groupStudents" matTooltip="{{st.firstName}} {{st.lastName}}">
                         <div class="image">
                             <span class="material-icons">
-                                <button class="custom-medium-fab" mat-mini-fab [color]="'primary'">
+                                <button mat-mini-fab class="custom-medium-fab" [style.background]="st.bgColor"
+                                    [style.color]="st.fontColor">
                                     {{st.shortName}}
                                 </button>
                             </span>
@@ -111,7 +112,8 @@
                             <ng-template #ch1>
                                 <div class="image">
                                     <span class="material-icons">
-                                        <button mat-mini-fab [color]="'primary'">
+                                        <button mat-mini-fab [style.background]="data.userBgColor"
+                                            [style.color]="data.userFontColor">
                                             {{data.shortName}}
                                         </button>
                                     </span>
@@ -123,8 +125,8 @@
                                             {{data.createdOn | date: 'dd MMM'}} |
                                             {{data.createdOn | date: 'h:mm:ss a'}}
                                         </span>
-                                        <span class="title"
-                                            [ngClass]="{'out': data.sender === loggedInUser.id}">{{data.content}}</span>
+                                        <span class="title" [style.background]="data.userBgColor"
+                                            [style.color]="data.userFontColor">{{data.content}}</span>
                                     </div>
                                 </div>
                             </ng-template>

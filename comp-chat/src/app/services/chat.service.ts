@@ -44,6 +44,8 @@ export class ChatService {
         user = this.prepareName(user);
         msg.userName = user.userName;
         msg.shortName = user.shortName;
+        msg.userBgColor = user.bgColor;
+        msg.userFontColor = user.fontColor;
         const oldMessage = this.getExistingMessageById(msg.id);
         if (oldMessage) {
           oldMessage.content = msg.content;
@@ -111,6 +113,8 @@ export class ChatService {
         let user = this.groupStudents.value.find(ur => ur.id === msg.sender);
         msg.userName = user.userName;
         msg.shortName = user.shortName;
+        msg.userBgColor = user.bgColor;
+        msg.userFontColor = user.fontColor;
       });
     }
   }
@@ -118,16 +122,40 @@ export class ChatService {
   prepareUsers = (users: any, professor: User) => {
     let groupUsers: any[] = [];
     users.forEach((user: any) => {
+      user.bgColor = this.getRandomBgColor();
+      user.fontColor = this.getFontColor(user.bgColor);
       groupUsers.push(this.prepareName(user));
     });
 
     let loggedInUser: any = this.rootScope.LOGGED_IN_USER.value;
     if (loggedInUser.type !== UserType.STUDENT) {
+      loggedInUser.bgColor = this.getRandomBgColor();
+      loggedInUser.fontColor = this.getFontColor(loggedInUser.bgColor);
       groupUsers.push(this.prepareName(loggedInUser))
     } else {
+      professor.bgColor = this.getRandomBgColor();
+      professor.fontColor = this.getFontColor(professor.bgColor);
       groupUsers.push(this.prepareName(professor))
     }
     return groupUsers;
+  }
+
+  getRandomBgColor = () => {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  getFontColor = (bgColor: string) => {
+    //return (parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2) ? '#000' : '#fff';
+    var color = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
+    var r = parseInt(color.substring(0, 2), 16); // hexToR
+    var g = parseInt(color.substring(2, 4), 16); // hexToG
+    var b = parseInt(color.substring(4, 6), 16); // hexToB
+    return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186) ? '#000' : '#fff';
   }
 
   getUserById = (userId: string) => {

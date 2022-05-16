@@ -6,4 +6,6 @@ export class User {
     lastName: string = '';
     email: string = '';
     type: UserType = UserType.ADMIN;
+    bgColor: string = '';
+    fontColor: string = '';
 }
